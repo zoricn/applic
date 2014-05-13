@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="container-fluid single-box-layout profile-page">
+    <div class="row-fluid">
+      <%#= render "profile", :user => @user %>
+
+      <!-- EMPTY Activity on profil pages
+      ============================== -->
+<% requests = position.position_requests %>
+<% if requests.empty? %>
+      <div class="span9">
+
+        <%#= render "tabs", :user => @user%>
+
+      <div class="profile-activity main-box">
+        <div class="row-fluid event-list">
+                <div class="row-fluid center">
+                  <div class="event-body event-box-text m-30">
+                  <div class="grey">
+                   
+                  <h1 class="normal">No Applicants Yet ...</h1>
+
+                   
+                  </div><!--/big-event-info-->
+                  </div><!--/event-body-->
+
+                  <!-- Ako je user prihvatio event, onda se prikazuje dugme post comment, a gubi se accept dugme-->
+                  <!--a class="btn btn-small btn-pink"><i class="icon-ok"></i>ACCEPT</a-->
+                  <br>
+                  <!--a href="" class="small "><i class="icon-comment"></i>Post comment</a-->
+                    
+                </div><!--/row-fluid-->
+              
+        </div><!--/row-fluid-->
+      </div><!--/main-box-->
+      </div><!--/span-->
+<% else %>
+      <!-- Activity on profil pages
+      ============================== -->
+      <div class="span9">
+        
+        <%#= render "tabs", :user => @user%>
+
+      <div class="profile-activity main-box">
+        <div class="row-fluid request-list">
+          <ul>
+            <% requests.each do |request| %>
+              <%= render "/position_requests/detail", :request => request, :user => @user %>
+            <% end %>
+          </ul>
+        </div><!--/row-fluid-->
+      </div><!--/main-box-->
+      </div><!--/span-->
+<% end %>
+    </div><!--/row-fluid-->
+  </div><!--/container-fluid-->
+</div><!--/container-->

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+
+    <title>Peeria</title>
+
+    <meta property="og:title" content="Peeria.com" /> 
+
+<meta property="og:description" content="Find or join new people in activities" />  
+
+<meta property="og:image" content="http://peeria.com/logo75x75.png" /> 
+
+<!--meta property="og:video" content="http://www.youtube.com/v/1F7DKyFt5pY&fs=1" /> 
+
+<meta property="og:video:width" content="560" />  
+
+<meta property="og:video:height" content="340" />  
+
+<meta property="og:video:type" content="application/x-shockwave-flash" /--> 
+
+    <link href="https://fonts.googleapis.com/css?family=Rancho" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet' type='text/css'>
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <%#= stylesheet_link_tag "application" %>
+
+    <%= stylesheet_link_tag "application", "bootstrap-tooltip", "bootstrap-editable", "eventy-style" %>
+    <%= javascript_include_tag "application" %>
+
+    <%= csrf_meta_tag %>
+
+    <meta name="google-site-verification" content="Yp9Ny4If_PQME70vC78j_adXx5qN3t8VOLyC7bemmdI" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <%= yield :head %>
+
+             <!--script for tooltip -->
+     <script type="text/javascript">
+        $(document).ready(function(){
+            if($("[rel=tooltip]").length){
+                $("[rel=tooltip]").tooltip();
+            }
+        });
+     </script>
+
+  </head>
+
+  <body>
+    <% if Rails.env.production? %>
+    <!-- ClickTale Top part -->
+<script type="text/javascript">
+var WRInitTime=(new Date()).getTime();
+</script>
+<% end %>
+<!-- ClickTale end of Top part -->
+
+    <div id="sticky-wrap"><!-- Sticky wrap is necessary for sticky footer! In content-yield need to add div- see in views/devies/registratiions/new.html.erb -->
+
+    <%= render "layouts/application/header" %>
+
+    <div class="main-background">
+
+      <%= render "layouts/application/flash_messages" %>
+      <div class="container">
+        <p></p>
+        <%= yield %>
+      </div>
+
+    </div><!--main-background-->
+
+    <%#= render "/shared/contactable" %>
+
+
+<div id="push"></div><!-- Important to add for sticky footer-->
+</div><!--/stycky-wrap-->
+
+ <%#= render "/layouts/application/footer" if !request.fullpath.include?("landing") %>
+
+
+  </body>
+
+</html>

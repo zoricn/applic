@@ -1,0 +1,10 @@
+<% content_for :title do %>
+  <h1 class="normal"><%= @position_request.position.title %></h1><h4><%= @position_request.status? %></h4>
+  <% if @position_request.position.owner? current_user %>
+  	<p class="grey"><%= @position_request.position.short_description %></p><p>Applied: <%= @position_request.user.email %></p>
+  <% else %>
+    <p class="grey"><%= @position_request.position.short_description %></p>
+  <% end %>
+<% end %>
+
+<%= render "comments/comments", :commentable => @position_request %>

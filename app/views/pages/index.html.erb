@@ -1,0 +1,10 @@
+<% if current_user %>
+  <ul>
+    <% current_user.pending_requests?.each do |position_request| %>
+      <%= render 'position_requests/status', :position_request => position_request, :as => :position_request %>
+    <% end unless current_user.pending_requests?.empty?%>
+  </ul>
+<% else %>
+  <h1>Welcome <%= current_user.email if current_user %></h1>
+<% end %>
+

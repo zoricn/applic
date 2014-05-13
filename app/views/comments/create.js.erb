@@ -1,0 +1,2 @@
+$('#the_comments').html('<%= escape_javascript(render "comment", :collection => @record_commentable.comments) %>');
+$('#comment_textarea').val('');

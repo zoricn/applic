@@ -1,0 +1,21 @@
+        <a href="<%#= user_path(current_user) %>" class="user">
+          <img src="<%#= current_user.picture %>">
+        </a>
+        <div class="media-body">
+          <div class="comment-arrow"></div>
+          <div class="media-bg">
+          <h6 class="media-heading grey"><%= current_user.email %>:</h6>
+          <%=form_for Comment.new, :url    => comments_path, :format => :json do |f|%>
+                    <%=f.hidden_field :commentable_id, 
+                          :value=> commentable.id, 
+                          :class => 'new-comment-commentable-id' %>
+        <%= f.hidden_field :commentable_type, 
+                           :value => commentable.class.name, 
+                           :class => 'new-comment-commentable-type' %>
+            <%=f.text_area :comment,
+                         :id => "comment_textarea",  
+                         :placeholder => 'Type your comment...', :rows => 2 %>
+                         <%=f.submit "Submit", :class=>"btn btn-green"%>
+          <% end %>
+</div>
+        </div>

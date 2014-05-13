@@ -1,0 +1,2 @@
+module PositionRequestsHelper
+end

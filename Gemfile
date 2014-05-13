@@ -1,0 +1,65 @@
+source "https://rubygems.org"
+
+gem "rails", "4.1.0"
+
+# Use PostgreSQL as the database for Active Record
+#gem "pg", :require => "pg"
+gem "mysql2"
+gem "sqlite3"
+
+# Compressor of JavaScript assets
+gem "uglifier", ">= 1.3.0"
+
+# Use CoffeeScript for .js.coffee assets and views
+gem "coffee-rails", "~> 4.0.0"
+
+# Use jQuery as the JavaScript library
+gem "jquery-rails"
+
+# User authentication
+gem "devise", "3.2.4"
+
+gem "omniauth-facebook"
+gem "kaminari"
+gem "ransack"
+gem "dynamic_form"
+gem 'mandrill-api'
+gem 'acts_as_commentable'
+gem "twitter-bootstrap-rails"
+gem "less-rails"
+gem 'therubyracer' #dependancy for less-rails
+
+group :test, :development do
+  gem "rspec-rails"
+  gem "debugger"
+  gem "spork-rails"
+  gem "awesome_print"
+  gem "pry"
+  gem "simplecov"
+end
+
+group :development do
+  gem "chronic"
+  #gem "admin_view"
+  gem 'better_errors'
+  gem "binding_of_caller"
+  gem 'rack-mini-profiler'
+end
+
+group :test do
+  gem "factory_girl_rails"
+  gem "cucumber-rails", :require => false
+  gem "database_cleaner"
+  gem "selenium-webdriver"
+  gem "capybara"
+  gem "shoulda"
+  gem "email_spec"
+  gem "capybara-webkit"
+  gem "launchy"
+  gem "webmock"
+  gem "minitest"
+end
+
+group :production, :development do
+  gem "thin"
+end

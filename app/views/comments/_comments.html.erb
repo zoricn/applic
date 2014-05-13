@@ -1,0 +1,17 @@
+<div class="row-fluid">
+  <div class="comments">
+
+      <div class="media m-20-bott">
+      <%= render "/comments/form", :commentable => commentable %>
+      </div>
+
+    <ul>
+      <div id="the_comments">
+      <% commentable.comments.each do |comment| %>
+        <%= render comment %>
+      <% end %>
+    </div>
+
+    </ul> 
+  </div><!--/span-->
+</div><!--/row-fluid-->
