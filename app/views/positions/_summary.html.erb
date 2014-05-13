@@ -44,7 +44,7 @@
         <div class="row-fluid request-list">
           <ul>
             <% requests.each do |request| %>
-              <%= render "/position_requests/detail", :request => request, :user => @user %>
+              <%= render "/position_requests/detail", :request => request %>
             <% end %>
           </ul>
         </div><!--/row-fluid-->

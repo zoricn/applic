@@ -7,7 +7,7 @@
 
     <ul>
       <div id="the_comments">
-      <% commentable.comments.each do |comment| %>
+      <% commentable.comments.reverse.each do |comment| %>
         <%= render comment %>
       <% end %>
     </div>

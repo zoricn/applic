@@ -12,7 +12,7 @@
 
   <%= link_to 'Edit', edit_position_path(@position), :class => 'btn btn-pink' %>
   <p>
-    <%= render @position.pending_requests? %>
+    <%#= render @position.pending_requests? %>
   </p> -->
 <div class="container">
               <h1 class="normal"><%= @position.title %></h1>
@@ -20,14 +20,26 @@
               <div>
 
   <%= render 'summary', :position => @position %>
-<% elsif !@position.applied?(current_user) %>
-  <%= form_for(PositionRequest.new) do |f| %>
-    <%= f.hidden_field :position_id, :value => @position.id %>
 
-    <div class="actions">
-      <%= f.submit "Apply", :class => "btn btn-pink" %>
-    </div>
-  <% end %>
+<% elsif !@position.applied?(current_user) %>
+
+<div class="container">
+  <p>
+  <%= @position.title %>
+</p>
+
+<p>
+  <%= @position.description %>
+</p>
+  <%= link_to "Apply", new_position_position_request_path(@position), :class => "btn btn-pink" %>
+</div>
+  <%#= form_for(PositionRequest.new) do |f| %>
+    <%#= f.hidden_field :position_id, :value => @position.id %>
+
+    <!--div class="actions">
+      <%#= f.submit "Apply", :class => "btn btn-pink" %>
+    </div-->
+  <%# end %>
 
   <%#= link_to 'Apply', new_position_request_path(:position_id => @position), :class => 'btn btn-pink'  %>
 <% end %>

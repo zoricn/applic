@@ -7,6 +7,7 @@ class PositionsController < ApplicationController
     @positions = current_user.positions
     @open_positions = Position.all.where(:user_id != current_user.id )
     @open_positions -= @positions
+    @applied_positions = []
   end
 
   # GET /positions/1

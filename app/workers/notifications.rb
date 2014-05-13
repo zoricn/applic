@@ -1,26 +1,38 @@
 class Notifications < ActionMailer::Base
   require 'mandrill'
   #include Sidekiq::Worker
-  default :from => "\"Peeria\" <no-reply@kolosek.com>"
+  default :from => "\"Applicant\" <no-reply@kolosek.com>"
   
 
   def request_received(request)
-    @receiver = request.receiver
-    @event   = request.event
-    @requester = request.requester
+    @user = request.entity
+    @owner   = request.position.user
+    @request = request
     begin
-      mail(to: @receiver.email).deliver  
+      mail(to: @user.email, :subject => "Thank you for applying.").deliver
+      # ADD email to the position owner!
     rescue Exception => e
-     
+      puts e
     end
   end
 
   def request_accepted(request)
-    @user = request.user
+    @user = request.entity
     @owner   = request.position.user
     @request = request
     begin
-      mail(to: @user.email, :subject => "You are inviter for interview").deliver  
+      mail(to: @user.email, :subject => "You are invited for interview").deliver  
+    rescue Exception => e
+      
+    end
+  end
+
+  def request_rejected(request)
+    @user = request.entity
+    @owner   = request.position.user
+    @request = request
+    begin
+      mail(to: @user.email, :subject => "Your application for interview is denied").deliver  
     rescue Exception => e
       
     end

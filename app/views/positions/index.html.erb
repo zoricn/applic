@@ -9,7 +9,17 @@
         <% end unless @open_positions.nil? %>
       </div><!--/row-fluid-->
       <% end %>
-      
+
+      <% unless @applied_positions.empty? %>
+          <h3>Applied to:</h3>
+          <!-- Small boxes-->
+        <div class="row-fluid">
+          <% @open_positions.each do |position| %>
+                <%= render 'box_applied', :position => position %>
+          <% end unless @open_positions.nil? %>
+        </div><!--/row-fluid-->
+      <% end %>
+
       <% unless @positions.empty? %>
           <h2>My jobs:</h2>
           <!-- Small boxes-->

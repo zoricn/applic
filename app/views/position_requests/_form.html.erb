@@ -12,6 +12,18 @@
     </div>
   <% end %>
 
+  <%= f.fields_for :applicants do |s| %>
+    <p>
+    <%= s.text_field :first_name, :placeholder => "first_name" %>
+    </p>
+    <p>
+    <%= s.text_field :last_name, :placeholder => "last_name" %>
+    </p>
+    <p>
+    <%= s.text_field :email, :placeholder => "email" %>
+    </p>
+  <% end %>
+
   <div class="actions">
     <%= f.submit "Apply", :class => "btn btn-pink" %>
   </div>

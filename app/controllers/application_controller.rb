@@ -6,4 +6,13 @@ class ApplicationController < ActionController::Base
     return true
   end
 
+    def after_sign_in_path_for(resource)
+    stored_location_for(resource) ||
+      if resource.is_a?(User)
+      	positions_path
+      else
+        super
+      end
+  end
+
 end

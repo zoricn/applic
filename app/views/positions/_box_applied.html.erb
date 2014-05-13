@@ -11,11 +11,17 @@
                 <% if true %>
                   <a href="#" class="comment-note"><i class="icon-comments"></i></a> 
                 <% end %>
-                  <%= link_to position.title, position_request_path(position_request.token) if position_request.token %>
+                  <% if position_request %>
+                    
+                  <%= link_to position.title, position_request_path(position_request.token) if position_request && position_request.token %>
+                  <% else %>
+                                      <%= link_to position.title, position_path(position), :class => "pink" %>
+
+                  <% end %>
               </h4>
               <p class="grey"><%= position.short_description %></p>
-              
-              <p class="grey">Applied at: <%= position_request.created_at.to_date %></p>
+
+              <p class="grey">Applied at: <%= position_request.created_at.to_date if position_request%></p>
             </div><!--/span-->
             
           </div><!--/box image-->

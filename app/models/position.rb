@@ -3,13 +3,15 @@ class Position < ActiveRecord::Base
   has_many :position_requests
   has_many :participants, through: :position_requests
 
+  #scope :active, where(:status => STATUS_COLLECTED)
+
 
   def owner? user
     self.user == user
   end
 
   def applied?(user)
-    !self.position_requests.where(:user_id => user.id).empty? || self.owner?(user)
+    !user.nil? && (!self.position_requests.where(:user_id => user.id).empty? || self.owner?(user))
   end
 
   def not_applied?(user)

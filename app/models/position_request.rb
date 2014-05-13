@@ -22,6 +22,10 @@ class PositionRequest < ActiveRecord::Base
    belongs_to :user
 
    before_create :generate_token
+   after_create :pending!
+
+  has_many :applicants
+  accepts_nested_attributes_for :applicants
 
 
 
@@ -29,7 +33,7 @@ class PositionRequest < ActiveRecord::Base
    return if !(self.status == STATUS_PENDING)
    self.status = STATUS_REJECTED
    Notifications.request_rejected(self)
-   #save!
+   save!
   end
 
   def accept!
@@ -38,6 +42,14 @@ class PositionRequest < ActiveRecord::Base
    Notifications.request_accepted(self)
    save!
   end
+
+  def pending!
+   self.status = STATUS_PENDING
+   Notifications.request_received(self)
+   save!
+  end
+
+
 
   def status_closed?
      self.status == STATUS_CLOSED
@@ -54,6 +66,10 @@ class PositionRequest < ActiveRecord::Base
 
   def active?
     ACTIVE_STATUSES.include?(self.status)
+  end
+
+  def entity
+    self.user || self.applicants.first
   end
 
   protected

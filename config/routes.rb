@@ -17,6 +17,12 @@ BaseApp::Application.routes.draw do
     member do
       get 'position_requests'
     end
+      resources :position_requests, :except => [:destroy, :edit, :show] do
+        member do
+          put "accept"
+          put "reject"
+        end
+      end
   end
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 

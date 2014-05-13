@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
-before_filter :authenticate_user!
+  ## Commenting is allowed for non-registered users too
+#before_filter :authenticate_user!   
 before_action :get_record_commentable, only: [:create]
 before_action :check_if_allowed, only: [:create]
 
@@ -8,7 +9,7 @@ end
  
  #TODO: Refactor - Create.js as it updates one unexisting id - uses two different calls
  def create
-  @comment = @record_commentable.comments.create(:commentable => @record_commentable, :user_id => current_user.id, :comment => params[:comment][:comment] )
+  @comment = @record_commentable.comments.create(:commentable => @record_commentable, :user_id => current_user.try(:id), :comment => params[:comment][:comment] )
   #@comment.notify!
   #@comment.create_activity :create, owner: current_user, recipient: @idea
     respond_to do |format|

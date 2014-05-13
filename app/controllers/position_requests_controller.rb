@@ -1,6 +1,7 @@
 class PositionRequestsController < ApplicationController
   before_action :get_position_request, only: [:accept, :reject]
-  before_action :get_position, only: [:new, :create]
+  before_action :get_position, only: [:new]
+  before_action :get_position_protected, only: [:create]
   before_action :get_request_by_token, only: [:show, :status]
   before_action :already_applied?, only: [:new, :create]
   before_action :authorized?, only: [:accept, :reject] 
@@ -9,7 +10,8 @@ class PositionRequestsController < ApplicationController
   end
 
   def new
-    @position_request = PositionRequest.new
+    @position_request = PositionRequest.new(:position_id => Position.first)
+    @position_request.applicants.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -20,10 +22,10 @@ class PositionRequestsController < ApplicationController
   def create
     @position_request = PositionRequest.new(position_request_params)
     @position_request.status = PositionRequest::STATUS_PENDING
-    @position_request.user_id = current_user.id
+    @position_request.user_id = current_user.id if current_user
 
     if @position_request.save
-      redirect_to root_path, notice: 'Position request was successfully created.'
+      redirect_to root_path, notice: 'Position request was successfully created. Please wait email with details.'
     else
       render :new
     end
@@ -36,6 +38,7 @@ class PositionRequestsController < ApplicationController
 
   def reject
     @position_request.reject!
+    redirect_to position_path(@position_request.position)
   end
 
   private
@@ -44,7 +47,13 @@ class PositionRequestsController < ApplicationController
       @position_request = PositionRequest.find(params[:id])
     end
 
+    #### PLEASE REFACTOR THIS TWO METHODS!!!###
+
     def get_position
+      @position = Position.find(params[:position_id])
+    end
+
+    def get_position_protected
       @position = Position.find(position_request_params[:position_id])
     end
 
