@@ -8,8 +8,9 @@ class Notifications < ActionMailer::Base
     @user = request.entity
     @owner   = request.position.user
     @request = request
+
+    mail(to: @user.email, :subject => "Thank you for applying.").deliver
     begin
-      mail(to: @user.email, :subject => "Thank you for applying.").deliver
       # ADD email to the position owner!
     rescue Exception => e
       puts e
@@ -20,8 +21,9 @@ class Notifications < ActionMailer::Base
     @user = request.entity
     @owner   = request.position.user
     @request = request
-    begin
-      mail(to: @user.email, :subject => "You are invited for interview").deliver  
+
+      mail(to: @user.email, :subject => "You are invited for interview").deliver 
+    begin 
     rescue Exception => e
       
     end
@@ -31,8 +33,9 @@ class Notifications < ActionMailer::Base
     @user = request.entity
     @owner   = request.position.user
     @request = request
-    begin
+    
       mail(to: @user.email, :subject => "Your application for interview is denied").deliver  
+    begin
     rescue Exception => e
       
     end
