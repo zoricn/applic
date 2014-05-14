@@ -22,7 +22,7 @@ class Notifications < ActionMailer::Base
     @owner   = request.position.user
     @request = request
 
-      mail(to: @uemail, :subject => "You are invited for interview").deliver 
+      mail(to: @email, :subject => "You are invited for interview").deliver 
     begin 
     rescue Exception => e
       
