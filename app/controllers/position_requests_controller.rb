@@ -1,6 +1,6 @@
 class PositionRequestsController < ApplicationController
   before_action :get_position_request, only: [:accept, :reject]
-  before_action :get_position, only: [:new]
+  before_action :get_position, only: [:new, :create]
   before_action :get_position_protected, only: [:create]
   before_action :get_request_by_token, only: [:show, :status]
   before_action :already_applied?, only: [:new, :create]
@@ -10,18 +10,11 @@ class PositionRequestsController < ApplicationController
   end
 
   def new
-    @position_request = PositionRequest.new(:position_id => Position.first)
-    @position_request.applicants.build
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @position_request }
-    end
+    @position_request = @position.position_requests.build
   end
 
   def create
-    @position_request = PositionRequest.new(position_request_params)
-    @position_request.status = PositionRequest::STATUS_PENDING
+    @position_request = @position.position_requests.build(position_request_params)
     @position_request.user_id = current_user.id if current_user
 
     if @position_request.save
@@ -71,6 +64,6 @@ class PositionRequestsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def position_request_params
-      params.require(:position_request).permit(:position_id, applicants_attributes: [:first_name, :last_name, :email] )
+      params.require(:position_request).permit(:position_id, :first_name, :last_name, :email)
     end
 end

@@ -1,28 +1,27 @@
 BaseApp::Application.routes.draw do
 
-  resources :applicants
-
-  resources :position_requests, :except => [:destroy, :edit, :show] do
-    member do
-      put "accept"
-      put "reject"
-    end
-  end
-
-  get "/position_requests/:token" => "position_requests#show"
+  get "/position_requests/:token" => "position_requests#show", :as => "position_request"
 
   resources :comments, :only => [:create, :new]
+
+
+  # resources :position_requests, :except => [:destroy, :edit, :show] do
+  #   member do
+  #     put "accept"
+  #     put "reject"
+  #   end
+  # end
 
   resources :positions do
     member do
       get 'position_requests'
     end
-      resources :position_requests, :except => [:destroy, :edit, :show] do
-        member do
-          put "accept"
-          put "reject"
-        end
+    resources :position_requests, :except => [:destroy, :edit, :show] do
+      member do
+        put "accept"
+        put "reject"
       end
+    end
   end
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 

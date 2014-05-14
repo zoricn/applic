@@ -1,7 +1,7 @@
 <% content_for :title do %>
   <h1 class="normal"><%= @position_request.position.title %></h1><h4><%= @position_request.status? %></h4>
   <% if @position_request.position.owner? current_user %>
-  	<p class="grey"><%= @position_request.position.short_description %></p><p>Applied: <%= @position_request.entity.email %></p>
+  	<p class="grey"><%= @position_request.position.short_description %></p><p>Applied: <%= @position_request.entity %></p>
   <% else %>
     <p class="grey"><%= @position_request.position.short_description %></p>
   <% end %>

@@ -10,9 +10,10 @@
                         <div class="big-event-info row-fluid">
                           <div class="span10">
                             <div class="row-fluid">
-                            <h4 class="bold"><%= request.entity.try(:first_name) %><%= request.entity.try(:last_name) %>
+
+                            <h4 class="bold info-tooltip" rel="tooltip" data-placement="down" data-original-title="<%= request.applicant_description %>"><%= request.entity %>
                              </h4>
-                            <p><%= request.entity.email %>
+                            <p><%= request.entity %>
                              </p>
 
                           </div>
@@ -32,13 +33,13 @@
                           <div class="span2 ajax"> 
                             <% if request.position.owner? current_user %>
                               <% if request.active? %>
-                                <%= link_to 'Status', position_request_path(request.token), :class => "btn btn-green" %>
+                                <%= link_to 'Status', position_request_path(request.token, :position_id => request.position.id), :class => "btn btn-green" %>
                               <% else %>
-                                <%= link_to 'Accept', accept_position_request_path(request), :method => :put, :class => "btn btn-green" %>
-                                <%= link_to 'Reject', reject_position_request_path(request), :method => :put, :class => "btn btn-pink" %>
+                                <%= link_to 'Accept', accept_position_position_request_path(request, :position_id => request.position.id), :method => :put, :class => "btn btn-green" %>
+                                <%= link_to 'Reject', reject_position_position_request_path(request, :position_id => request.position.id), :method => :put, :class => "btn btn-pink" %>
                               <% end %>
                             <% else  %>
-                              <%= link_to 'Status', position_request_path(position_request.token), :class => "btn btn-green" %>
+                              <%= link_to 'Status', position_request_path(position_request.token, :position_id => request.position.id), :class => "btn btn-green" %>
                             <% end %>
                           </div><!--/span-->
                           

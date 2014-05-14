@@ -4,7 +4,7 @@
         <div class="media-body">
           <div class="comment-arrow"></div>
           <div class="media-bg">
-          <h6 class="media-heading grey"><%= commentable.entity.email %>:</h6>
+          <h6 class="media-heading grey"><%= current_user.try(:email) || commentable.entity %>:</h6>
           <%=form_for Comment.new, :url    => comments_path, :format => :json do |f|%>
                     <%=f.hidden_field :commentable_id, 
                           :value=> commentable.id, 

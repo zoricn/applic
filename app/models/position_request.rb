@@ -17,15 +17,17 @@ class PositionRequest < ActiveRecord::Base
 
   ACTIVE_STATUSES = [ STATUS_ACCEPTED, STATUS_REJECTED ]
 
-   belongs_to :applicant
-   belongs_to :position
-   belongs_to :user
+   #belongs_to :applicant
+  belongs_to :position
+  belongs_to :user
 
-   before_create :generate_token
-   after_create :pending!
+  before_create :generate_token
+  after_create :pending!
 
-  has_many :applicants
-  accepts_nested_attributes_for :applicants
+  store_accessor :applicant, :first_name, :last_name, :email
+
+  #has_many :applicants
+  #accepts_nested_attributes_for :applicants
 
 
 
@@ -45,8 +47,8 @@ class PositionRequest < ActiveRecord::Base
 
   def pending!
    self.status = STATUS_PENDING
-   Notifications.request_received(self)
    save!
+   Notifications.request_received(self)
   end
 
 
@@ -68,8 +70,23 @@ class PositionRequest < ActiveRecord::Base
     ACTIVE_STATUSES.include?(self.status)
   end
 
+  def entity_email
+    if self.user
+      self.user.try(:email)
+    elsif self.applicant
+      self.applicant["email"]
+    else
+      ""
+    end
+  end
+
+  #Print information about the applicant
   def entity
-    self.user || self.applicants.first
+    self.applicant["email"] unless self.applicant.nil?
+  end
+
+  def applicant_description
+    self.applicant["first_name"] + ' ' + self.applicant["last_name"]  
   end
 
   protected

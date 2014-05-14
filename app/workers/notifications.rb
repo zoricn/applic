@@ -5,11 +5,11 @@ class Notifications < ActionMailer::Base
   
 
   def request_received(request)
-    @user = request.entity
+    @email = request.entity_email
     @owner   = request.position.user
     @request = request
 
-    mail(to: @user.email, :subject => "Thank you for applying.").deliver
+    mail(to: @email, :subject => "Thank you for applying.").deliver
     begin
       # ADD email to the position owner!
     rescue Exception => e
@@ -18,11 +18,11 @@ class Notifications < ActionMailer::Base
   end
 
   def request_accepted(request)
-    @user = request.entity
+    @email = request.entity_email
     @owner   = request.position.user
     @request = request
 
-      mail(to: @user.email, :subject => "You are invited for interview").deliver 
+      mail(to: @uemail, :subject => "You are invited for interview").deliver 
     begin 
     rescue Exception => e
       
@@ -30,11 +30,11 @@ class Notifications < ActionMailer::Base
   end
 
   def request_rejected(request)
-    @user = request.entity
+    @email = request.entity_email
     @owner   = request.position.user
     @request = request
-    
-      mail(to: @user.email, :subject => "Your application for interview is denied").deliver  
+
+    mail(to: @email, :subject => "Your application for interview is denied").deliver  
     begin
     rescue Exception => e
       

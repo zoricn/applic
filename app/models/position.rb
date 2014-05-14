@@ -10,6 +10,10 @@ class Position < ActiveRecord::Base
     self.user == user
   end
 
+  def not_owner? user
+    self.user != user
+  end
+
   def applied?(user)
     !user.nil? && (!self.position_requests.where(:user_id => user.id).empty? || self.owner?(user))
   end

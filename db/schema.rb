@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140513105505) do
+ActiveRecord::Schema.define(version: 20140514083251) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "applicants", force: true do |t|
     t.string   "first_name"
@@ -39,12 +43,15 @@ ActiveRecord::Schema.define(version: 20140513105505) do
   create_table "position_requests", force: true do |t|
     t.integer  "position_id"
     t.integer  "applicant_id"
-    t.integer  "status"
+    t.integer  "status",       default: 10
     t.string   "token"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.hstore   "applicant"
   end
+
+  add_index "position_requests", ["applicant"], name: "position_requests_applicant", using: :gin
 
   create_table "positions", force: true do |t|
     t.string   "title"

@@ -1,4 +1,4 @@
-<%= form_for(@position_request) do |f| %>
+<%= form_for [@position, @position_request] do |f| %>
   <%= f.hidden_field :position_id, :value => @position.id %>
   <% if @position_request.errors.any? %>
     <div id="error_explanation">
@@ -11,18 +11,9 @@
       </ul>
     </div>
   <% end %>
-
-  <%= f.fields_for :applicants do |s| %>
-    <p>
-    <%= s.text_field :first_name, :placeholder => "first_name" %>
-    </p>
-    <p>
-    <%= s.text_field :last_name, :placeholder => "last_name" %>
-    </p>
-    <p>
-    <%= s.text_field :email, :placeholder => "email" %>
-    </p>
-  <% end %>
+  <%= f.text_field :first_name, :placeholder => "First Name" %>
+  <%= f.text_field :last_name, :placeholder => "Last Name" %>
+  <%= f.text_field :email, :placeholder => "Email" %>
 
   <div class="actions">
     <%= f.submit "Apply", :class => "btn btn-pink" %>
