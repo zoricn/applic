@@ -17,6 +17,12 @@ BaseApp::Application.configure do
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
+  #Enabling iFrime embedable on other sites set for specific site e.g. kolosek.com  or enable for all
+  config.action_dispatch.default_headers = {
+    'X-Frame-Options' => ''  #ALLOWALL | SAMEORIGIN
+  }
+
+
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 

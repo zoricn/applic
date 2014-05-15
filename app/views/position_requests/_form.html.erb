@@ -15,7 +15,14 @@
   <%= f.text_field :last_name, :placeholder => "Last Name" %>
   <%= f.text_field :email, :placeholder => "Email" %>
 
+    <%= f.fields_for :attachments do |p| %>
+     <div class="field">
+       <%= p.label :file %><br>
+       <%= p.file_field :file, :multiple => true, name: "attachments[file][]", :class => "btn-flat small" %>
+     </div>
+   <% end %>
+
   <div class="actions">
-    <%= f.submit "Apply", :class => "btn btn-pink" %>
+    <%= f.submit "Apply", :class => "btn-flat" %>
   </div>
 <% end %>

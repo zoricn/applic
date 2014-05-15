@@ -3,6 +3,9 @@ class Position < ActiveRecord::Base
   has_many :position_requests
   has_many :participants, through: :position_requests
 
+  before_create :generate_token
+
+
   #scope :active, where(:status => STATUS_COLLECTED)
 
 
@@ -57,5 +60,14 @@ class Position < ActiveRecord::Base
 
   def short_description
     self.description.truncate(100, separator: ' ')
+  end
+
+  protected
+
+    def generate_token
+    self.token = loop do
+      random_token = SecureRandom.urlsafe_base64(nil, false)
+      break random_token unless PositionRequest.exists?(token: random_token)
+    end
   end
 end

@@ -28,6 +28,9 @@ gem 'acts_as_commentable'
 gem "twitter-bootstrap-rails"
 gem "less-rails"
 gem 'therubyracer' #dependancy for less-rails
+gem 'carrierwave'
+gem "fog"          # Support for Amazon s3
+gem "rails_config" # Storing settings logic test/development/production
 
 group :test, :development do
   gem "rspec-rails"

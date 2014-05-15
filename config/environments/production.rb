@@ -38,6 +38,11 @@ BaseApp::Application.configure do
 
   config.action_mailer.default_url_options = { :host => ENV['APPLICANT_HOST'] || 'app.kolosek.com' }
 
+  #Enabling iFrime embedable on other sites
+  config.action_dispatch.default_headers = {
+    'X-Frame-Options' => ''  #ALLOWALL | SAMEORIGIN
+  }
+
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx

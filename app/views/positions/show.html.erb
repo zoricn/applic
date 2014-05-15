@@ -17,6 +17,7 @@
 <div class="container">
               <h1 class="normal"><%= @position.title %></h1>
               <p class="grey"><%= @position.short_description %></p>
+              <p>&lt;iframe src=&quot;http://localhost:3000/job/<%= @position.token %>&quot; width=&quot;100%&quot; height=&quot;100%&quot; id=&quot;&quot; style=&quot;&quot;&gt;Error loading form. Please reload in few moments.&lt;/iframe&gt;</p>
               <div>
 
   <%= render 'summary', :position => @position %>
@@ -43,6 +44,10 @@
 
   <%#= link_to 'Apply', new_position_request_path(:position_id => @position), :class => 'btn btn-pink'  %>
 <% end %>
+
+
+
+
 
 
 

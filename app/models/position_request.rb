@@ -26,23 +26,21 @@ class PositionRequest < ActiveRecord::Base
 
   store_accessor :applicant, :first_name, :last_name, :email
 
-  #has_many :applicants
-  #accepts_nested_attributes_for :applicants
-
-
+  has_many :attachments
+  accepts_nested_attributes_for :attachments
 
   def reject!
    return if !(self.status == STATUS_PENDING)
    self.status = STATUS_REJECTED
-   Notifications.request_rejected(self)
    save!
+   Notifications.request_rejected(self)
   end
 
   def accept!
    return if !(self.status == STATUS_PENDING)
    self.status = STATUS_ACCEPTED
-   Notifications.request_accepted(self)
    save!
+   Notifications.request_accepted(self)
   end
 
   def pending!
@@ -50,8 +48,6 @@ class PositionRequest < ActiveRecord::Base
    save!
    Notifications.request_received(self)
   end
-
-
 
   def status_closed?
      self.status == STATUS_CLOSED

@@ -14,6 +14,11 @@ class PositionsController < ApplicationController
   def show
   end
 
+  def iframe
+    @position = Position.find_by_token(params[:token])
+    render :layout => false
+  end
+
   # GET /positions/new
   def new
     @position = Position.new

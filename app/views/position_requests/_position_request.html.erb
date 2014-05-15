@@ -1,7 +1,0 @@
-<li>
-<% if position_request.position.owner? current_user %>
-    <%= position_request.user.email %>
-	<%= link_to 'Accept', accept_position_request_path(position_request), :method => :put %>
-	<%= link_to 'Reject', reject_position_request_path(position_request), :method => :put %>
-<% end  %>
-</li>

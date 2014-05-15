@@ -1,13 +1,71 @@
-<div class="container">
-  <p>
-  <%= @position.title %>
-</p>
+<style type="text/css">
+input{
+  width: 100%;
+  margin-top: 8px!important;
+}
 
-<p>
-  <%= @position.description %>
-</p>
+input[type="text"]{
+  border: 1px solid #f7f7f7!important;
+  height: 34px!important;
 
+
+    vertical-align: top;
+	display: inline-block;
+	padding: 6px 6px;
+	/* margin-bottom: 9px; */
+	/* margin-top: 0; */
+	/* font-size: 14px; */
+	line-height: 20px;
+}
+
+input:focus, textarea:focus:required:invalid:focus, select:focus:required:invalid:focus {
+  box-shadow: none;
+  border: 1px solid #00a8ec!important;
+}
+
+/*Flat Buttons*/
+.btn-flat{
+  padding: 10px 30px;
+  margin: 5px 0;
+  color: #00a8ec;
+  font-weight: 400;
+  text-rendering: auto;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border: 2px solid #00a8ec;
+  cursor: pointer;
+  display: inline-block;
+  background-color: transparent;
+  text-align: center;
+  text-transform: uppercase;
+  -webkit-transition: background-color 300ms ease-out;
+-moz-transition: background-color 300ms ease-out;
+transition: background-color 300ms ease-out;
+}
+
+.btn-flat:hover{
+  background: #00a8ec;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.btn-flat.small{
+  padding: 4px 13px;
+  font-size: 12px;
+  width: 25%;
+}
+
+
+
+
+</style>
+
+<% if !notice %>
 <%= render 'form' %>
-
 </div>
+<% else %>
+	Thank you for applying
+<% end %>
+
 
