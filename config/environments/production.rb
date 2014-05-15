@@ -36,7 +36,7 @@ BaseApp::Application.configure do
   # Version of your assets, change this if you want to expire all your assets.
   config.assets.version = '1.0'
 
-  config.action_mailer.default_url_options = { :host => ENV['APPLICANT_HOST'] || 'app.kolosek.com' }
+  config.action_mailer.default_url_options = { :host => 'app.kolosek.com' }
 
   #Enabling iFrime embedable on other sites
   config.action_dispatch.default_headers = {

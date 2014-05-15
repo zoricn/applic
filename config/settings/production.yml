@@ -1,2 +1,4 @@
 s3:
   bucket: "applicant-prod"
+domain:
+  host: app.kolosek.com
