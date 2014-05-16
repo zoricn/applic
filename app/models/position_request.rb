@@ -16,6 +16,7 @@ class PositionRequest < ActiveRecord::Base
   }
 
   ACTIVE_STATUSES = [ STATUS_ACCEPTED ]
+  OPEN_STATUSES = [ STATUS_ACCEPTED, STATUS_PENDING ]
 
    #belongs_to :applicant
   belongs_to :position
@@ -61,7 +62,7 @@ class PositionRequest < ActiveRecord::Base
   end
 
   def status_open?
-    ACTIVE_STATUSES.include? self.status
+    OPEN_STATUSES.include? self.status
   end
 
   def authorized? entity
