@@ -30,7 +30,7 @@ class PositionRequest < ActiveRecord::Base
   has_many :attachments
   accepts_nested_attributes_for :attachments
 
-  scope :open, -> {where("status IN (?)", ACTIVE_STATUSES)}
+  scope :open, -> {where("status IN (?)", OPEN_STATUSES)}
   scope :accepted, -> { where(:status => STATUS_ACCEPTED) }
 
   def reject!
