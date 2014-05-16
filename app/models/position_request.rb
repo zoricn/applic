@@ -95,6 +95,11 @@ class PositionRequest < ActiveRecord::Base
     self.applicant  
   end
 
+  def new_comments?(user)
+    return unless user == self.position.owner #Return only if owner viewing it
+    self.position.owner.last_sign_in_at < self.comments.last.created_at unless self.comments.nil?
+  end
+
   protected
 
   def generate_token

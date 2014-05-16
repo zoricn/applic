@@ -41,6 +41,19 @@ class Notifications < ActionMailer::Base
     end
   end
 
+  def comment_received(comment)
+    return if comment.user_id.nil? #Don't inform user owner
+    @request = comment.commentable
+    @email = @request.entity_email
+    @comment = comment
+
+    mail(to: @email, :subject => "Imate novu poruku u vezi sa vasom aplikacijom").deliver  
+    begin
+    rescue Exception => e
+      
+    end
+  end
+
   def request_accepted_mandrill_template(request)
     entity = request.user
     owner   = request.position.user

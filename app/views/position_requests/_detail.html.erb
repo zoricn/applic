@@ -43,6 +43,10 @@
                               <%= link_to 'Status', position_request_path(position_request.token, :position_id => request.position.id), :class => "btn btn-green" %>
                               <p><%= request.status? %></p>
                             <% end %>
+
+                            <% if request.new_comments?(current_user) %>
+                                    <!--p><span class="badge andika">.</span></p-->
+                            <% end %>
                           </div><!--/span-->
                           
                          

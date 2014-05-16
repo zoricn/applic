@@ -12,4 +12,10 @@ class Comment < ActiveRecord::Base
 
   # NOTE: Comments belong to a user
   belongs_to :user
+
+  after_create :notify!
+
+  def notify!
+   Notifications.comment_received(self)
+  end
 end
