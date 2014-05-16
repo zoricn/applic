@@ -15,7 +15,7 @@ class PositionRequest < ActiveRecord::Base
     STATUS_CLOSED  => 'closed'
   }
 
-  ACTIVE_STATUSES = [ STATUS_ACCEPTED, STATUS_PENDING ]
+  ACTIVE_STATUSES = [ STATUS_ACCEPTED ]
 
    #belongs_to :applicant
   belongs_to :position
