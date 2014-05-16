@@ -17,7 +17,7 @@
 <div class="container">
               <h1 class="normal"><%= @position.title %></h1>
               <p class="grey"><%= @position.short_description %></p>
-                <%= text_field_tag '', "<iframe src='http://#{Settings.domain.host}/position/#{@position.id}position_requests/new' height='100%' width='100%'>Error loading form. Please reload in few moments</iframe>" %>
+                <%= text_field_tag '', "<iframe src='http://#{Settings.domain.host}/position/#{@position.id}/position_requests/new' height='100%' width='100%'>Error loading form. Please reload in few moments</iframe>" %>
 
 
               <div>
