@@ -24,7 +24,7 @@ class PositionRequest < ActiveRecord::Base
   before_create :generate_token
   after_create :pending!
 
-  store_accessor :applicant, :first_name, :last_name, :email
+  store_accessor :applicant, :name, :birth_year, :email, :education, :experience, :availability, :why
 
   has_many :attachments
   accepts_nested_attributes_for :attachments

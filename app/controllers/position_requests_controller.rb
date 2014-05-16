@@ -25,7 +25,7 @@ class PositionRequestsController < ApplicationController
        end unless params[:attachments].nil?
       redirect_to new_position_position_request_path(@position), notice: 'Position request was successfully created. Please wait email with details.'
     else
-      render :new
+      redirect_to new_position_position_request_path(@position), notice: 'You already applied for this job. Please let others apply too.'
     end
   end
 
@@ -69,6 +69,6 @@ class PositionRequestsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def position_request_params
-      params.require(:position_request).permit(:position_id, :first_name, :last_name, :email, attachments_attributes: [:id, :position_request_id, :file])
+      params.require(:position_request).permit(:position_id, :name, :birth_year, :email, :education, :experience, :availability, :why, attachments_attributes: [:id, :position_request_id, :file])
     end
 end
