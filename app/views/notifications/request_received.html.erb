@@ -1,12 +1,13 @@
-Exciting! 
-
- <%= @email %>, 
-
-   Thanks for applying.
-
- Follow up at this link.  <%= link_to 'Application Status', position_request_path(@request.token, :only_path => false) %> For future updates on your application.
-
-
-
- Have a good time, Kolosek Team
-
+Hvala sto ste aplicirali za rad u nasoj kompaniji. 
+<br />
+<br />
+Da pratite status vase aplikacije posetite link -> <%= link_to 'Status Aplikacije', position_request_path(@request.token, :only_path => false) %>
+<br />
+<br />
+U najkracem roku dobijate obavestenje da li ulazite u dalju obradu.
+<br />
+<br />
+Srdacan pozdrav, 
+<br />
+<br />
+<%= render 'signature' %>

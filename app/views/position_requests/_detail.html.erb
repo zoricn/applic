@@ -11,9 +11,9 @@
                           <div class="span10">
                             <div class="row-fluid">
 
-                            <h4 class="bold info-tooltip" rel="tooltip" data-placement="down" data-original-title="<%= request.applicant_description %>"><%= request.entity %>
+                            <h4 class="bold info-tooltip" rel="tooltip" data-placement="down" data-original-title="<%#= request.applicant_description %>"><%= request.entity %>
                              </h4>
-                            <p><%= request.entity %>
+                            <p><%= request.applicant_description %>
                              </p>
 
                           </div>
@@ -32,14 +32,16 @@
 
                           <div class="span2 ajax"> 
                             <% if request.position.owner? current_user %>
-                              <% if request.active? %>
-                                <%= link_to 'Status', position_request_path(request.token, :position_id => request.position.id), :class => "btn btn-green" %>
-                              <% else %>
+                              <% if request.pending? %>
                                 <%= link_to 'Accept', accept_position_position_request_path(request, :position_id => request.position.id), :method => :put, :class => "btn btn-green" %>
                                 <%= link_to 'Reject', reject_position_position_request_path(request, :position_id => request.position.id), :method => :put, :class => "btn btn-pink" %>
+                              <% else %>
+                                <%= link_to 'Status', position_request_path(request.token, :position_id => request.position.id), :class => "btn btn-green" %>
+                                <p><%= request.status? %></p>
                               <% end %>
                             <% else  %>
                               <%= link_to 'Status', position_request_path(position_request.token, :position_id => request.position.id), :class => "btn btn-green" %>
+                              <p><%= request.status? %></p>
                             <% end %>
                           </div><!--/span-->
                           

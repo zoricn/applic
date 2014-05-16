@@ -1,12 +1,10 @@
-Unfortunatelly 
-
- <%= @email %>, 
-
-   You application has beend rejected. Feel free to apply in a month or so for same position.
-
- Follow up at this link.  <%= link_to 'Application Status', position_request_path(@request.token, :only_path => false) %> For future updates on your application.
-
-
-
- Have a good time, Kolosek Team
-
+Hvala sto ste aplicirali za rad u nasoj kompaniji. 
+<br />
+<br />
+Nazalost trenutno nismo u mogucnosti da vas primimo kao deo tima. To ne znaci da u bliskoj buducnosti nece biti moguce. Slobodno aplicirajte za nekoliko meseci. 
+<br />
+<br />
+Srdacan pozdrav, 
+<br />
+<br />
+<%= render 'signature' %>

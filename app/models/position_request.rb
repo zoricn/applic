@@ -15,7 +15,7 @@ class PositionRequest < ActiveRecord::Base
     STATUS_CLOSED  => 'closed'
   }
 
-  ACTIVE_STATUSES = [ STATUS_ACCEPTED, STATUS_REJECTED ]
+  ACTIVE_STATUSES = [ STATUS_ACCEPTED, STATUS_PENDING ]
 
    #belongs_to :applicant
   belongs_to :position
@@ -29,8 +29,11 @@ class PositionRequest < ActiveRecord::Base
   has_many :attachments
   accepts_nested_attributes_for :attachments
 
+  scope :open, -> {where("status IN (?)", ACTIVE_STATUSES)}
+  scope :accepted, -> { where(:status => STATUS_ACCEPTED) }
+
   def reject!
-   return if !(self.status == STATUS_PENDING)
+   return if !self.status_open?
    self.status = STATUS_REJECTED
    save!
    Notifications.request_rejected(self)
@@ -55,7 +58,10 @@ class PositionRequest < ActiveRecord::Base
 
   def status?
     STATUSES[self.status]
-    
+  end
+
+  def status_open?
+    ACTIVE_STATUSES.include? self.status
   end
 
   def authorized? entity
@@ -64,6 +70,10 @@ class PositionRequest < ActiveRecord::Base
 
   def active?
     ACTIVE_STATUSES.include?(self.status)
+  end
+
+  def pending?
+    self.status == STATUS_PENDING
   end
 
   def entity_email

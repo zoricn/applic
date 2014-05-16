@@ -5,7 +5,7 @@
 
       <!-- EMPTY Activity on profil pages
       ============================== -->
-<% requests = position.position_requests %>
+<% requests = position.position_requests.merge(PositionRequest.open) %>
 <% if requests.empty? %>
       <div class="span9">
 

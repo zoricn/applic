@@ -9,7 +9,7 @@ class Notifications < ActionMailer::Base
     @owner   = request.position.user
     @request = request
 
-    mail(to: @email, :subject => "Thank you for applying.").deliver
+    mail(to: @email, :subject => "Hvala na prijavi").deliver
     begin
       # ADD email to the position owner!
     rescue Exception => e
@@ -22,7 +22,7 @@ class Notifications < ActionMailer::Base
     @owner   = request.position.user
     @request = request
 
-      mail(to: @email, :subject => "You are invited for interview").deliver 
+      mail(to: @email, :subject => "Pozvani ste na dalje korake").deliver 
     begin 
     rescue Exception => e
       
@@ -34,7 +34,7 @@ class Notifications < ActionMailer::Base
     @owner   = request.position.user
     @request = request
 
-    mail(to: @email, :subject => "Your application for interview is denied").deliver  
+    mail(to: @email, :subject => "Nazalost vasa aplikacija je trenutno odbijena").deliver  
     begin
     rescue Exception => e
       
