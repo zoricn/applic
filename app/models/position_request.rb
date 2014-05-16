@@ -82,7 +82,7 @@ class PositionRequest < ActiveRecord::Base
   end
 
   def applicant_description
-    self.applicant["first_name"] + ' ' + self.applicant["last_name"]  
+    self.applicant  
   end
 
   protected

@@ -17,7 +17,9 @@
 <div class="container">
               <h1 class="normal"><%= @position.title %></h1>
               <p class="grey"><%= @position.short_description %></p>
-              <p>&lt;iframe src=&quot;http://<%= Settings.domain.host %>/job/<%= @position.token %>&quot; width=&quot;100%&quot; height=&quot;100%&quot; id=&quot;&quot; style=&quot;&quot;&gt;Error loading form. Please reload in few moments.&lt;/iframe&gt;</p>
+                <%= text_field_tag '', "<iframe src='http://#{Settings.domain.host}/job/#{@position.token}' height='100%' width='100%'>Error loading form. Please reload in few moments</iframe>" %>
+
+
               <div>
 
   <%= render 'summary', :position => @position %>
