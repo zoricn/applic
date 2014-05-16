@@ -97,7 +97,7 @@ class PositionRequest < ActiveRecord::Base
 
   def new_comments?(user)
     return unless user == self.position.owner #Return only if owner viewing it
-    self.position.owner.last_sign_in_at < self.comments.last.created_at unless self.comments.nil?
+    self.position.owner.last_sign_in_at < self.comments.last.created_at unless self.comments.empty?
   end
 
   protected
