@@ -1,4 +1,4 @@
-<%= form_for [@position, @position_request] do |f| %>
+<%= form_for [@position, @position_request], :url => "/positions/#{@position.token}/position_requests" do |f| %>
   <%= f.hidden_field :position_id, :value => @position.id %>
   <% if @position_request.errors.any? %>
     <div id="error_explanation">
@@ -26,8 +26,8 @@
 
     <%= f.fields_for :attachments do |p| %>
      <div class="field">
-       <%#= p.label :file %><br>
-       <%#= p.file_field :file, :multiple => true, name: "attachments[file][]", :class => "btn-flat small" %>
+       <%= p.label :file %><br>
+       <%= p.file_field :file, :multiple => true, name: "attachments[file][]", :class => "btn-flat small" %>
      </div>
    <% end %>
 

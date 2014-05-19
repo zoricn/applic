@@ -1,12 +1,13 @@
 class PositionRequestsController < ApplicationController
-  before_action :get_position_request, only: [:accept, :reject]
+  before_action :get_position_request, only: [:accept, :reject, :update]
   before_action :get_position, only: [:new, :create]
-  before_action :get_position_protected, only: [:create]
+  before_action :get_position_protected, only: [:create, :update]
   before_action :get_request_by_token, only: [:show, :status]
   before_action :already_applied?, only: [:new, :create]
   before_action :authorized?, only: [:accept, :reject] 
 
   def show
+    @position = @position_request.position
   end
 
   def new
@@ -23,9 +24,20 @@ class PositionRequestsController < ApplicationController
        params[:attachments]['file'].each do |f|
           @attachment = @position_request.attachments.create!(:file => f, :position_request_id => @position_request.id)
        end unless params[:attachments].nil?
-      redirect_to new_position_position_request_path(@position), notice: 'Position request was successfully created. Please wait email with details.'
+      redirect_to new_position_position_request_path(@position.token), notice: 'Position request was successfully created. Please wait email with details.'
     else
-      redirect_to new_position_position_request_path(@position), notice: 'You already applied for this job. Please let others apply too.'
+      redirect_to new_position_position_request_path(@position.token), notice: 'You already applied for this job. Please let others apply too.'
+    end
+  end
+
+  def update
+    if !params[:attachments].nil?
+       params[:attachments]['file'].each do |f|
+          @attachment = @position_request.attachments.create!(:file => f, :position_request_id => @position_request.id)
+       end
+      redirect_to position_request_path(@position_request.token), notice: 'Successfully added attachment. Thanks'
+    else
+      redirect_to position_request_path(@position_request.token), notice: 'There was nothing to attach.'
     end
   end
 
@@ -48,7 +60,7 @@ class PositionRequestsController < ApplicationController
     #### PLEASE REFACTOR THIS TWO METHODS!!!###
 
     def get_position
-      @position = Position.find(params[:position_id])
+      @position = Position.find_by_token(params[:token])
     end
 
     def get_position_protected

@@ -5,7 +5,25 @@
   <% else %>
     <p class="grey"><%= @position_request.position.short_description %></p>
   <% end %>
+  <%= form_for [@position, @position_request] do |f| %>
+    <%= f.hidden_field :position_id, :value => @position.id %>
+    <%= f.fields_for :attachments, @position_request.attachments.build do |p| %>
+     <div class="field">
+       <%= p.file_field :file, :multiple => true, name: "attachments[file][]", :class => "btn-flat small" %>
+     </div>
+   <% end %>
+
+  <div class="actions">
+    <%= f.submit "Add file", :class => "btn-pink" %>
+  </div>
 <% end %>
+<% end %>
+
+<% @position_request.attachments.each  do |r|  %>
+<%= link_to r.file, r.file_url %>
+<% end %>
+
+
 
 <% if @position_request.active? %>
   <%= render "comments/comments", :commentable => @position_request %>

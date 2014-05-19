@@ -5,6 +5,8 @@ BaseApp::Application.routes.draw do
   resources :request_attachments
 
   get "/position_requests/:token" => "position_requests#show", :as => "position_request"
+  get "/positions/:token/position_request/new" => "position_requests#new", :as => "new_position_request"
+  get "/positions/:token/position_requests/new" => "position_requests#new"
   get "/job/:token" => "positions#iframe", :as => "job"
 
 
@@ -22,7 +24,7 @@ BaseApp::Application.routes.draw do
     member do
       get 'position_requests'
     end
-    resources :position_requests, :except => [:destroy, :edit, :show] do
+    resources :position_requests, :except => [:destroy, :show] do
       member do
         put "accept"
         put "reject"

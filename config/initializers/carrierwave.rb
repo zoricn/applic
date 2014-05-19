@@ -20,7 +20,8 @@ CarrierWave.configure do |config|
     config.enable_processing = false
     config.root = "#{Rails.root}/tmp"
   else
-    config.cache_dir = Rails.env.development? ? Rails.root.to_s + '/public/uploads/tmp' : "/data/#{Rails.env}/tmp/" 
+    #Maybe enable?
+    #config.cache_dir = Rails.env.development? ? Rails.root.to_s + '/public/uploads/tmp' : "/data/#{Rails.env}/tmp/" 
   end
 
 
