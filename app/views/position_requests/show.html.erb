@@ -7,35 +7,32 @@
   <% end %>
   <% if @position_request.active? && @position_request.owner_commented? %>
     <div class="row">
-      <div class="span4">
-            <p>
-        <%= form_for [@position, @position_request] do |f| %>
-          <%= f.hidden_field :position_id, :value => @position.id %>
-          <%= f.fields_for :attachments, @position_request.attachments.build do |p| %>
-           <div class="field">
-             <%= p.file_field :file, :multiple => true, name: "attachments[file][]", :class => "btn-flat small" %>
+    <div class="span4">
+                <p>
+            <%= form_for [@position, @position_request] do |f| %>
+              <%= f.hidden_field :position_id, :value => @position.id %>
+              <%= f.fields_for :attachments, @position_request.attachments.build do |p| %>
+               <div class="field">
+                 <%= p.file_field :file, :multiple => true, name: "attachments[file][]", :class => "btn-flat small" %>
 
-           </div>
+               </div>
 
-           <div class="field" style="width:136px;">
-             
-           <%= f.submit "Add file", :class => "btn-pink" %>
+               <div class="field" style="width:136px;">
+                 
+               <%= f.submit "Add file", :class => "btn-pink" %>
 
-           </div>
+               </div>
 
-         <% end %>
-      </p>
+             <% end %>
+          </p>
 
-      </div>
+          </div>
 
-    </div>
-  <% else %>
-    
+        </div>
+        
+
+      <% end %>
   <% end %>
-  
-  
-
-<% end %>
 <% end %>
 
 <% @position_request.attachments.each  do |r|  %>
