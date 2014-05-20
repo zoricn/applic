@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   layout 'dashboard'
   def index
-    @positions = Position.all
+    @positions = current_user ? Position.all : []
   end
 
 end

@@ -6,17 +6,20 @@ class PositionRequest < ActiveRecord::Base
   STATUS_REJECTED  = 30.freeze
   STATUS_ARCHIVED  = 40.freeze
   STATUS_CLOSED    = 50.freeze
+  STATUS_PROCESS   = 60.freeze
 
   STATUSES = {
     STATUS_PENDING  => 'pending',
     STATUS_ACCEPTED   => 'accepted',
     STATUS_REJECTED  => 'rejected',
     STATUS_ARCHIVED  => 'archived',
-    STATUS_CLOSED  => 'closed'
+    STATUS_CLOSED  => 'closed',
+    STATUS_PROCESS => 'in process'
   }
 
-  ACTIVE_STATUSES = [ STATUS_ACCEPTED ]
+  ACTIVE_STATUSES = [ STATUS_ACCEPTED, STATUS_PROCESS ]
   OPEN_STATUSES = [ STATUS_ACCEPTED, STATUS_PENDING ]
+  CLOSED_STATUS = [STATUS_REJECTED, STATUS_CLOSED, STATUS_ARCHIVED]
 
    #belongs_to :applicant
   belongs_to :position
@@ -25,7 +28,7 @@ class PositionRequest < ActiveRecord::Base
   before_create :generate_token
   after_create :pending!
 
-  store_accessor :applicant, :name, :birth_year, :email, :education, :experience, :availability, :why
+  store_accessor :applicant
 
   has_many :attachments
   accepts_nested_attributes_for :attachments
@@ -53,6 +56,12 @@ class PositionRequest < ActiveRecord::Base
    Notifications.request_received(self)
   end
 
+  def process!
+   self.status = STATUS_PROCESS
+   save!
+   Notifications.request_in_process(self)
+  end
+
   def status_closed?
      self.status == STATUS_CLOSED
   end
@@ -73,6 +82,14 @@ class PositionRequest < ActiveRecord::Base
     ACTIVE_STATUSES.include?(self.status)
   end
 
+  def closed?
+    CLOSED_STATUS.include?(self.status)
+  end
+
+  def owner_commented?
+    !self.comments.empty?
+  end
+
   def pending?
     self.status == STATUS_PENDING
   end
@@ -88,6 +105,7 @@ class PositionRequest < ActiveRecord::Base
   end
 
   #Print information about the applicant
+  # !! It requires email field!
   def entity
     self.applicant["email"] unless self.applicant.nil?
   end

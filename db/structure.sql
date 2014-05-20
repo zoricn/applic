@@ -111,6 +111,41 @@ ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
 
 
 --
+-- Name: position_fields; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE position_fields (
+    id integer NOT NULL,
+    name character varying(255),
+    field_type character varying(255),
+    required boolean,
+    title character varying(255),
+    position_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: position_fields_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE position_fields_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: position_fields_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE position_fields_id_seq OWNED BY position_fields.id;
+
+
+--
 -- Name: position_requests; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -157,7 +192,8 @@ CREATE TABLE positions (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     user_id integer,
-    token character varying(255)
+    token character varying(255),
+    fields hstore[]
 );
 
 
@@ -288,6 +324,13 @@ ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq':
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY position_fields ALTER COLUMN id SET DEFAULT nextval('position_fields_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY position_requests ALTER COLUMN id SET DEFAULT nextval('position_requests_id_seq'::regclass);
 
 
@@ -326,6 +369,14 @@ ALTER TABLE ONLY attachments
 
 ALTER TABLE ONLY comments
     ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: position_fields_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY position_fields
+    ADD CONSTRAINT position_fields_pkey PRIMARY KEY (id);
 
 
 --
@@ -382,6 +433,13 @@ CREATE INDEX index_comments_on_user_id ON comments USING btree (user_id);
 
 
 --
+-- Name: index_position_fields_on_position_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_position_fields_on_position_id ON position_fields USING btree (position_id);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -393,13 +451,6 @@ CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 --
 
 CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
-
-
---
--- Name: position_requests_applicant; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX position_requests_applicant ON position_requests USING gin (applicant);
 
 
 --
@@ -425,21 +476,19 @@ INSERT INTO schema_migrations (version) VALUES ('20140509084116');
 
 INSERT INTO schema_migrations (version) VALUES ('20140509084223');
 
-INSERT INTO schema_migrations (version) VALUES ('20140509084327');
-
 INSERT INTO schema_migrations (version) VALUES ('20140509114520');
 
 INSERT INTO schema_migrations (version) VALUES ('20140509121607');
 
 INSERT INTO schema_migrations (version) VALUES ('20140509133016');
 
-INSERT INTO schema_migrations (version) VALUES ('20140513105505');
-
 INSERT INTO schema_migrations (version) VALUES ('20140514083251');
-
-INSERT INTO schema_migrations (version) VALUES ('20140514100444');
 
 INSERT INTO schema_migrations (version) VALUES ('20140515072818');
 
 INSERT INTO schema_migrations (version) VALUES ('20140515085951');
+
+INSERT INTO schema_migrations (version) VALUES ('20140519133852');
+
+INSERT INTO schema_migrations (version) VALUES ('20140519145422');
 

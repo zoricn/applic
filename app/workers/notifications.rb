@@ -22,7 +22,19 @@ class Notifications < ActionMailer::Base
     @owner   = request.position.user
     @request = request
 
-      mail(to: @email, :subject => "Pozvani ste na dalje korake").deliver 
+      mail(to: @email, :subject => "Primljeni ste").deliver 
+    begin 
+    rescue Exception => e
+      
+    end
+  end
+
+  def request_in_process(request)
+    @email = request.entity_email
+    @owner   = request.position.user
+    @request = request
+
+      mail(to: @email, :subject => "Vasa aplikacija je u procesu").deliver 
     begin 
     rescue Exception => e
       

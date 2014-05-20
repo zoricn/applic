@@ -28,6 +28,7 @@ BaseApp::Application.routes.draw do
       member do
         put "accept"
         put "reject"
+        put "process_request"
       end
     end
   end

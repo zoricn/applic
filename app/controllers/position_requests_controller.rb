@@ -1,10 +1,10 @@
 class PositionRequestsController < ApplicationController
-  before_action :get_position_request, only: [:accept, :reject, :update]
+  before_action :get_position_request, only: [:accept, :reject, :update, :process_request]
   before_action :get_position, only: [:new, :create]
   before_action :get_position_protected, only: [:create, :update]
   before_action :get_request_by_token, only: [:show, :status]
   before_action :already_applied?, only: [:new, :create]
-  before_action :authorized?, only: [:accept, :reject] 
+  before_action :authorized?, only: [:accept, :reject, :process_request] 
 
   def show
     @position = @position_request.position
@@ -46,6 +46,11 @@ class PositionRequestsController < ApplicationController
     redirect_to position_request_path(@position_request.token)
   end
 
+  def process_request
+    @position_request.process!
+    redirect_to position_request_path(@position_request.token)
+  end
+
   def reject
     @position_request.reject!
     redirect_to position_path(@position_request.position)
@@ -81,6 +86,8 @@ class PositionRequestsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def position_request_params
-      params.require(:position_request).permit(:position_id, :name, :birth_year, :email, :education, :experience, :availability, :why, attachments_attributes: [:id, :position_request_id, :file])
+      params.require(:position_request).permit(:position_id, attachments_attributes: [:id, :position_request_id, :file]).tap do |whitelisted|
+        whitelisted[:applicant] = params[:position_request][:applicant]
+      end
     end
 end

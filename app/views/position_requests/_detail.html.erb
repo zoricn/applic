@@ -33,7 +33,7 @@
                           <div class="span2 ajax"> 
                             <% if request.position.owner? current_user %>
                               <% if request.pending? %>
-                                <%= link_to 'Accept', accept_position_position_request_path(request, :position_id => request.position.id), :method => :put, :class => "btn btn-green" %>
+                                <%= link_to 'Process', process_request_position_position_request_path(request, :position_id => request.position.id), :method => :put, :class => "btn btn-green" %>
                                 <%= link_to 'Reject', reject_position_position_request_path(request, :position_id => request.position.id), :method => :put, :class => "btn btn-pink" %>
                               <% else %>
                                 <%= link_to 'Status', position_request_path(request.token, :position_id => request.position.id), :class => "btn btn-green" %>

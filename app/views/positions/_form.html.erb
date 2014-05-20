@@ -1,25 +1,99 @@
 <%= form_for(@position) do |f| %>
-  <% if @position.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@position.errors.count, "error") %> prohibited this position from being saved:</h2>
+<% if @position.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@position.errors.count, "error") %> prohibited this position from being saved:</h2>
 
-      <ul>
-      <% @position.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <ul>
+    <% @position.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
 <% end %>
+
+<div class="field">
+  <%= f.label :title %><br>
+  <%= f.text_field :title %>
+</div>
+<div class="field">
+  <%= f.label :description %><br>
+  <%= f.text_area :description %>
+</div>
+
+<% @position.fields.try(:each) do |p|  %>
+<div class="field">
+  Identifier:<%= text_field_tag "position[fields][][name]", p["name"]  %>
+  Question:<%= text_field_tag "position[fields][][question]", p["question"] %>
+  <br>
+</div>
+<% end %>
+
+
+
+<div id="InputsWrapper">
+<div class="question_field" style="margin-left:0px;margin-top:20px;">
+  <div>
+    Identifier:<%= text_field_tag "position[fields][][name]" %>
+    Question:<%= text_field_tag "position[fields][][question]" %>
+    <a href="#" class="removeclass">&times;</a>
+  </div>
+</div>
+</div>
+
+
+
+<a href="#" id="AddMoreField">Add field</a><br/>
+
+
+<%#= simple_form_for @position do |f| %>
+<%= f.simple_fields_for :fields do |d| %>
+<% f.object.fields.try(:each) do |field| %>
+<% field.try(:each) do |key, value| %>
+<%#= text_field_tag "position[fields][][#{key}]" %>
+<%#= d.input key, :input_html => {:value => value } %>
+<% end %>
+<%#= d.input key, :input_html => {:value => value } %>
+<% end %>
+<% end %>
+
+<%= f.fields_for :fields do |builder| %>
+<%#= render 'field_fields', f: builder %>
+<% end %>
+
+<div class="actions">
+  <%= f.submit  "Create", :class=>"btn btn-pink" %>
+</div>
+<% end %>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+var MaxInputs       = 8; //maximum input boxes allowed
+var InputsWrapper   = $("#InputsWrapper"); //Input boxes wrapper ID
+var AddButton       = $("#AddMoreField"); //Add button ID
+
+var x = InputsWrapper.length; //initlal text box count
+var FieldCount=1; //to keep track of text box added
+
+$(AddButton).click(function (e)  //on add input button click
+{
+        if(x <= MaxInputs) //max input box allowed
+        {
+            FieldCount++; //text box added increment
+            //add input box
+            $(InputsWrapper).append($(".question_field").html());
+            x++; //text box increment
+          }
+          return false;
+        });
+
+$("body").on("click",".removeclass", function(e){ //user click on remove text
+  if( x > 1 ) {
+                $(this).parent('div').remove(); //remove text box
+                x--; //decrement textbox
+              }
+              return false;
+            }) 
+
+});
+</script>

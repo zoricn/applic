@@ -1,5 +1,9 @@
-<h1>New position</h1>
+<% content_for :title do %>
+  <h1 class="normal">New Position</h4>
+ <% end %>
 
-<%= render 'form' %>
+    <div class="row-fluid">
+      <%= render 'form' %>
+  </div><!--/container-->
 
-<%= link_to 'Back', positions_path %>
+

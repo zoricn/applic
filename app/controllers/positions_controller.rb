@@ -33,6 +33,7 @@ class PositionsController < ApplicationController
     @position = Position.new(position_params)
     @position.user_id = current_user.id
 
+
     if @position.save
       redirect_to @position, notice: 'Position was successfully created.'
     else
@@ -63,13 +64,17 @@ class PositionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def position_params
-      params.require(:position).permit(:title, :description)
+      params.require(:position).permit(:title, :description, :fields_attributes).tap do |whitelisted|
+        whitelisted[:fields] = params[:position][:fields]
+      end
     end
 
     def resolve_layout
     case action_name
       when "index"
         "dashboard"
+       when "new"
+        "application"
       else
         "dashboard"
       end
