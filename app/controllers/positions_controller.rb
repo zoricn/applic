@@ -12,6 +12,7 @@ class PositionsController < ApplicationController
 
   # GET /positions/1
   def show
+    @requests = @position.position_requests
   end
 
   def iframe

@@ -1,0 +1,52 @@
+
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+
+
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+
+      <% if current_user %>
+        <%= link_to "Applicant", positions_path, :class => "brand pink" %>
+      <% else %>
+        <%= link_to "Applicant", root_path, :class => "brand pink" %>
+      <% end %>
+      <em class="normal">spirits up your life...</em>
+      <%= yield :header %>
+
+
+      <div class="nav-collapse collapse">
+        <ul class="nav pull-right">
+          <% if user_signed_in?  %>
+            <% if current_user.admin? %>
+              <li><%= link_to "Admin", admin_path %></li>
+            <% end %>
+            <% if false %>
+            <li class="notify-badge">
+              <span class="badge andika"><%= '1' %></span>
+              <%#= link_to current_user.name, current_user%>
+            </li>
+            <% end %>
+            <li><%= link_to "Sign out", destroy_user_session_path, :class =>"btn btn-grey-pink" %></li>
+            <%#<li><%= link_to "Settings", edit_user_registration_path %><%#</li>%>
+          <% else %>
+            <li><%= link_to "Sign in", user_session_path, :class =>"btn btn-grey-pink" %></li>
+            <!--li class="nav-face"><%= link_to "Sign in", user_omniauth_authorize_path(:facebook), :class => "sign-face" %></li-->
+            <!--li><%= link_to "Login", user_omniauth_authorize_path(:facebook), :class =>"btn btn-grey-pink" %></li-->
+          <% end -%>
+        </ul>
+      </div>
+      
+      <div class="nav-collapse collapse">
+        <ul class="nav pull-right">
+      </div>
+
+    </div>
+  </div><!--/navbar-inner-->
+</div>
+
+

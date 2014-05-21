@@ -1,56 +1,87 @@
-<div class="container">
-  <div class="container-fluid single-box-layout profile-page">
-    <div class="row-fluid">
-      <%#= render "profile", :user => @user %>
 
-      <!-- EMPTY Activity on profil pages
-      ============================== -->
-<% requests = position.position_requests.merge(PositionRequest.open) %>
-<% if requests.empty? %>
-      <div class="span9">
 
-        <%#= render "tabs", :user => @user%>
+<li class="media">
+              <a href="<%#= user_path(event.owner) %>" >
 
-      <div class="profile-activity main-box">
-        <div class="row-fluid event-list">
-                <div class="row-fluid center">
-                  <div class="event-body event-box-text m-30">
-                  <div class="grey">
-                   
-                  <h1 class="normal">No Applicants Yet ...</h1>
-
-                   
-                  </div><!--/big-event-info-->
-                  </div><!--/event-body-->
-
-                  <!-- Ako je user prihvatio event, onda se prikazuje dugme post comment, a gubi se accept dugme-->
-                  <!--a class="btn btn-small btn-pink"><i class="icon-ok"></i>ACCEPT</a-->
-                  <br>
-                  <!--a href="" class="small "><i class="icon-comment"></i>Post comment</a-->
                     
-                </div><!--/row-fluid-->
-              
-        </div><!--/row-fluid-->
-      </div><!--/main-box-->
-      </div><!--/span-->
-<% else %>
-      <!-- Activity on profil pages
-      ============================== -->
-      <div class="span9">
-        
-        <%#= render "tabs", :user => @user%>
+                    <img src="<%#= event.owner.picture %>" rel="tooltip" data-placement="top" data-original-title="by: <%#= event.owner.name %>">
 
-      <div class="profile-activity main-box">
-        <div class="row-fluid request-list">
-          <ul>
-            <% requests.each do |request| %>
-              <%= render "/position_requests/detail", :request => request %>
-            <% end %>
-          </ul>
-        </div><!--/row-fluid-->
-      </div><!--/main-box-->
-      </div><!--/span-->
-<% end %>
-    </div><!--/row-fluid-->
-  </div><!--/container-fluid-->
-</div><!--/container-->
+                </a>  
+
+                <div class="media-body">
+                  <!--span class="label">Owner</span-->
+
+                  <div class="media-heading">
+                      <div class="row-fluid center">
+                        <div class="event-body pull-left event-box-text">
+                        <div class="big-event-info row-fluid">
+                          <div class="span10">
+                            <div class="row-fluid">
+                           
+                            <h4 class="bold"><a href="<%#= event_path(event) %>" class="pink"><%= position.title %></a>
+                             <div class="pull-right label label-owner">
+                              <span><i class="icon-user"></i></span></div> 
+                             <div class="pull-right label label-approved">
+                              <span><i class="icon-ok"></i></span></div>
+                             </h4>
+                          </div>
+                          <div class="row-fluid">
+                          <div class="span7">
+                            
+                            <p class="grey"><%= request.applicant %></p>
+                            <p class="green bold"><%= position.created_at.strftime("%B %d, %Y at %I.%M %p") %></p>
+
+                          </div><!--/span-->
+                          <div class="span5">
+                           <% if position.position_requests.size > 0 %>
+                              <p ><a href="<%#= event_path(event) %>" class="grey small">People: <span class="bold"><%= position.position_requests.size %> </span></a></p>
+
+                              <p class="">
+                                
+                                <a href="<%#= event_path(event) %>" class="grey small relative comment-badge">
+                                  <% if request.new_comments?(current_user) %>
+                                    <span class="badge andika"></span>
+                                  <% end %>
+                                  Comments: 
+                                  <span class="bold"><%= position.position_requests.size %></span></a></p>
+                          
+                          <% end %>
+                          </div><!--/span-->
+                          </div><!--/row-fluid-->
+                          </div><!--/span-->
+
+                          <div class="span2 ajax">
+                            
+                              <%#= link_to "Delete", event, :method => :delete, :class => "btn alert alert-grey", :confirm => "Do you want to delete your event?"%>
+                              <span class="alert alert-grey"><%= request.status? %></span>
+                              <% if request.position.owner? current_user %>
+                                <% if request.pending? %>
+                                  <%= link_to 'Process', process_request_position_position_request_path(request, :position_id => request.position.id), :method => :put, :class => "btn btn-green" %>
+                                  <%= link_to 'Reject', reject_position_position_request_path(request, :position_id => request.position.id), :method => :put, :class => "btn btn-gray-pink" %>
+                                <% else %>
+                                  <%= link_to 'Status', position_request_path(request.token, :position_id => request.position.id), :class => "btn btn-green" %>
+                                <% end %>
+                              <% else  %>
+                                <%= link_to 'Status', position_request_path(position_request.token, :position_id => request.position.id), :class => "btn btn-grey-pink" %>
+                              <% end %>
+
+                              <% if request.new_comments?(current_user) %>
+                                      <!--p><span class="badge andika">.</span></p-->
+                              <% end %>
+                              <!--span class="alert alert-grey">Approved</span-->
+                              <!--span class="alert alert-pink">Waiting for response ...</span-->
+                                
+                          </div><!--/span-->
+                          
+                         
+
+                        </div><!--/big-event-info-->
+                        </div><!--/event-body-->
+                                        
+                      </div><!--/row-fluid-->
+                    </div><!--/media-heading-->
+
+                 </div><!--/media-body-->
+                 
+               </li>
+

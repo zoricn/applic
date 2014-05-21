@@ -1,0 +1,29 @@
+<footer>
+  <div class="container">
+  <ul>
+    <li><%= link_to "Home", root_path, :class =>"pink" %></li>
+    <li><%= link_to "About Us", '#' %></li>
+    <!--li><%#= link_to "Accept :)", root_path(:only_path => false), :target => "_blank", :class => "pink" %></li-->
+    <!--li><a href="">About</a></li>
+    <li><a href="">Help</a></li-->
+  </ul>
+
+  <ul class="pull-right">
+    <li>Applicant &copy; 2014 All Rights Reserved</li>
+  </ul>
+  </div><!--/container-->
+</footer>
+
+<!-- AJAX FLASH MESSAGE -->
+      <div class="app-messages-bg" style="display:none;" >
+      <div class="app-message center ">
+          <h4 class="grey"><i class="icon-ok"></i><span id="ajax-message">Invitation Sent</span></h4>
+      </div><!-- app-message-->
+      </div><!-- app-messages-bg-->
+
+<script>
+  $("[class=app-messages-bg]").click(function () {
+  $("[class=app-messages-bg]").fadeOut("slow");
+  });
+</script>
+

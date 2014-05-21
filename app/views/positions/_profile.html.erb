@@ -1,0 +1,65 @@
+<div class="span3 main-box">
+        <div class=" row-fluid user-event-info">
+
+          <!--div class="profile-image">
+            <div class="thumb">
+            <a href="" >
+            <img src="<%= @user.try(:picture) %>?type=large">
+             <span class="text"><i class="icon-user"></i> Person's description comming soon...</span>
+           </a>
+             <a href="#modal-description" role="button" data-toggle="modal" class="pull-right btn btn-small grey"><i class="icon-user"></i> Edit</a>
+             </div>           
+          </div--><!--/user-->
+
+          <div class="event-info">
+            <h5 class="grey"><%= position.title %></h5>
+
+          </div><!--/event-info-->
+        </div><!--/row-fluid-->
+        <hr class="dashed">
+
+                <div class="upgrade">
+            <h4 class="green center">Premium member</h4>
+
+                      
+          
+          <div class="alert alert-block alert-yellow">
+            <!--button type="button" class="close normal small" data-dismiss="alert">X</button-->
+
+            <p>Invite 50 people and</p>
+            <h5 class="alert-heading">Become Premium Member</h5>
+            <!--div class="alert alert-pink" href="#<%#= upgrade_account_path %>">Comming soon...</div-->
+          </div><!--/alert-->
+                
+
+        </div><!--/upgrade-->
+                <hr class="dashed">
+                
+        <div class="row-fluid small likes">
+          <p class="grey center"> Active&nbsp; / &nbsp;Yours</p>
+         <h3 class="center normal"><span class="pink">1</span>
+          <span class="grey">/ 4</span></h3>
+        </div><!--/row-fluid-->
+        <hr class="dashed">
+        <div class="row-fluid small likes">
+          <p class="grey">People on all your events </p>
+          <h3 class="normal center grey">10</h3>
+        </div><!--/row-fluid-->
+      </div><!--/span-->
+
+<!-- Modal -->
+<div id="modal-description" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-body">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+     <p class="grey">Write something about yourself</p>
+     <div class="row-fluid">
+      <form>
+        <textarea rows="3"></textarea><br>
+        <input type="submit" class="btn btn-pink btn-small" value="Save">
+      </form>
+     </div><!--/row-fluid-->
+  </div>
+
+</div>
+
+
