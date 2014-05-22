@@ -9,12 +9,8 @@
       <%= render "sidebar", :position => @position, :request => @position_request %>
       <!-- Activity on profil pages
       ============================== -->
-      <div class="span9">
-        
+      <% if @position_request.position.owner? current_user %>
 
-      <div class="profile-activity main-box">
-        <div class="row-fluid">
-          <% if @position_request.position.owner? current_user %>
             <%= render "comments/comments", :commentable => @position_request %>
           <% elsif @position_request.active? && @position_request.owner_commented? %>
             <%= render "comments/comments", :commentable => @position_request %>
@@ -24,9 +20,7 @@
           <% else %>
             <%= render "positions/empty", :title => "Please wait for response by owner.", :subtitle => "" %>
           <% end %>
-        </div><!--/row-fluid-->
-      </div><!--/main-box-->
-      </div><!--/span-->
+      
     </div><!--/row-fluid-->
   </div><!--/container-fluid-->
 </div><!--/container-->
