@@ -6,6 +6,8 @@ class PositionRequestsController < ApplicationController
   before_action :already_applied?, only: [:new, :create]
   before_action :authorized?, only: [:accept, :reject, :process_request] 
 
+  layout "dashboard"
+
   def show
     @position = @position_request.position
   end

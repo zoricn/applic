@@ -28,7 +28,7 @@ class Position < ActiveRecord::Base
   end
 
   def applicants_count?
-    self.position_requests.count + 1 # + owner who is not included
+    self.position_requests.count # + owner who is not included
   end
 
   def is_owner?(entity)

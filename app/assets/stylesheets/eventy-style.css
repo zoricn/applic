@@ -583,6 +583,15 @@ p.master-intro{
 .master-content #event_name form{
 	margin: 0;
 }
+
+form.wide input, form.wide textarea {
+	width:60%;
+}
+
+form.wide input.small {
+	width:25%;
+}
+
 h1#event_name{
 	margin: 10px 0 0 0;
 }

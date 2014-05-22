@@ -1,0 +1,42 @@
+<div class="span2 main-box" style="overflow: hidden;">
+        <div class=" row-fluid user-event-info">
+
+          <!--div class="profile-image">
+            <div class="thumb">
+            <a href="" >
+            <img src="<%= @user.try(:picture) %>?type=large">
+             <span class="text"><i class="icon-user"></i> Person's description comming soon...</span>
+           </a>
+             <a href="#modal-description" role="button" data-toggle="modal" class="pull-right btn btn-small grey"><i class="icon-user"></i> Edit</a>
+             </div>           
+          </div--><!--/user-->
+
+          <!--div class="event-info">
+            <h5 class="grey"><%= position.title %></h5>
+
+          </div--><!--/event-info-->
+          <% if @position_request.active? && @position_request.owner_commented? %>
+            <%= form_for [position, request] do |f| %>
+              <%= f.hidden_field :position_id, :value => position.id %>
+              <%= f.fields_for :attachments, request.attachments.build do |p| %>
+                 <%= p.file_field :file, :multiple => true, name: "attachments[file][]", :class => "btn-flat small" %>
+                 
+               <%= f.submit "Add file", :class => "btn-pink" %>
+
+             <% end %>        
+
+            <% end %>
+          <% end %>
+        </div><!--/row-fluid-->
+        <hr class="dashed">
+                
+        <div class="row-fluid small likes">
+          <p class="grey center"> Files</p>
+          <% @position_request.attachments.each  do |r|  %>
+            <p class="grey normal"><%= link_to r.file, r.file_url %></p>
+          <% end %>
+        </div><!--/row-fluid-->
+      </div><!--/span-->
+
+
+

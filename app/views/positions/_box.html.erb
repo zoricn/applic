@@ -19,20 +19,20 @@
             </div><!--/span-->
             <div class="people-row">
               <% if position.applicants_count? > 1 %>  
-                <p class="grey">People: <span class="bold"><%= position.applicants_count? %></p>
+                <p class="grey">Applied: <span class="bold"><%= position.applicants_count? %></p>
               <% end %>
             </div><!--people-row-->
           </div><!--/box image-->
           
           <div class=" row-fluid user-event-info">
-            <div class="user">
+            <!--div class="user">
               <%#= link_to '#', root_path do %>
                 <img src="<%#= position.owner.picture %>">
               <%# end %>
-            </div><!--/user-->
+            </div--><!--/user-->
             <div class="event-info">
-              <h4><%= link_to position.owner.email, '#' %></h4>
-              <p><span>Member since: </span><%= position.owner.created_at.to_date %></p>
+              <!--h4><%= link_to position.owner.email, '#' %></h4-->
+              <p><span>Active since: </span><%= position.created_at.to_date %></p>
             </div><!--/event-info-->
           </div><!--/row-fluid-->
         </div><!--/main-box-->

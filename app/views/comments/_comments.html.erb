@@ -5,7 +5,7 @@
       <%= render "/comments/form", :commentable => commentable %>
       </div>
 
-    <ul>
+    <ul style="list-style-type:none;">
       <div id="the_comments">
       <% commentable.comments.reverse.each do |comment| %>
         <%= render comment %>

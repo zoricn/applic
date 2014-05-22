@@ -1,0 +1,31 @@
+      <div class="span9">
+
+        <%#= render "tabs", :user => @user%>
+
+      <div class="profile-activity main-box">
+        <div class="row-fluid event-list">
+                <div class="row-fluid center">
+                  <div class="event-body event-box-text m-30">
+                  <div class="grey">
+                   
+                  <h1 class="normal"><%= title || "No responses Yet ..." %></h1>
+
+                  <h3 class="normal"><%= subtitle || "Please be patient ;)" %></h3>
+                  <!--div class=" border-bg">
+                    <a href="/" class="btn invite-btn btn-large btn-pink" data-invited="" data-eid="">
+                      <i class="icon-plus"></i> Create</a>
+                  </div-->
+                   
+                  </div><!--/big-event-info-->
+                  </div><!--/event-body-->
+
+                  <!-- Ako je user prihvatio event, onda se prikazuje dugme post comment, a gubi se accept dugme-->
+                  <!--a class="btn btn-small btn-pink"><i class="icon-ok"></i>ACCEPT</a-->
+                  <br>
+                  <!--a href="" class="small "><i class="icon-comment"></i>Post comment</a-->
+                    
+                </div><!--/row-fluid-->
+              
+        </div><!--/row-fluid-->
+      </div><!--/main-box-->
+      </div><!--/span-->

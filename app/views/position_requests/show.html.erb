@@ -1,84 +1,43 @@
+<div class="container">
+  <div class="container-fluid single-box-layout profile-page" style="margin:0;">
+    <div class="row-fluid">
+      <div class="main-box-header relative" style="border: 0px;">
+              <h1 class="normal"><%= @position_request.position.title %></h1><h4><%= @position_request.status? %></h4>
+              <% if @position_request.position.owner?(current_user) && @position_request.status_open? %><p>Applied: <%= @position_request.entity %> <%= link_to 'Reject', reject_position_position_request_path(@position_request, :position_id => @position_request.position.id), :method => :put, :class => "pink" %></p>
+              <% end %>
+            </div><!--/main-box-header-->
+      <%= render "sidebar", :position => @position, :request => @position_request %>
+      <!-- Activity on profil pages
+      ============================== -->
+      <div class="span9">
+        
+
+      <div class="profile-activity main-box">
+        <div class="row-fluid">
+          <% if @position_request.position.owner? current_user %>
+            <%= render "comments/comments", :commentable => @position_request %>
+          <% elsif @position_request.active? && @position_request.owner_commented? %>
+            <%= render "comments/comments", :commentable => @position_request %>
+          <% elsif @position_request.closed? %>
+             <%= render "positions/empty", :title => "Comments are now closed", :subtitle => "" %>
+          <%= render "comments/comments", :commentable => @position_request %>
+          <% else %>
+            <%= render "positions/empty", :title => "Please wait for response by owner.", :subtitle => "" %>
+          <% end %>
+        </div><!--/row-fluid-->
+      </div><!--/main-box-->
+      </div><!--/span-->
+    </div><!--/row-fluid-->
+  </div><!--/container-fluid-->
+</div><!--/container-->
+
+
 <% content_for :title do %>
   <h1 class="normal"><%= @position_request.position.title %></h1><h4><%= @position_request.status? %></h4>
   <% if @position_request.position.owner? current_user %>
-  	<p class="grey"><%= @position_request.position.short_description %></p><p>Applied: <%= @position_request.entity %> <%= link_to 'Reject', reject_position_position_request_path(@position_request, :position_id => @position_request.position.id), :method => :put, :class => "pink" %></p>
+    <p class="grey"><%= @position_request.position.short_description %></p><p>Applied: <%= @position_request.entity %> <%= link_to 'Reject', reject_position_position_request_path(@position_request, :position_id => @position_request.position.id), :method => :put, :class => "pink" %></p>
   <% else %>
     <p class="grey"><%= @position_request.position.short_description %></p>
   <% end %>
-  <% if @position_request.active? && @position_request.owner_commented? %>
-    <div class="row">
-    <div class="span4">
-                <p>
-            <%= form_for [@position, @position_request] do |f| %>
-              <%= f.hidden_field :position_id, :value => @position.id %>
-              <%= f.fields_for :attachments, @position_request.attachments.build do |p| %>
-               <div class="field">
-                 <%= p.file_field :file, :multiple => true, name: "attachments[file][]", :class => "btn-flat small" %>
-
-               </div>
-
-               <div class="field" style="width:136px;">
-                 
-               <%= f.submit "Add file", :class => "btn-pink" %>
-
-               </div>
-
-             <% end %>
-          </p>
-
-          </div>
-
-        </div>
-        
-
-      <% end %>
-  <% end %>
-<% end %>
-
-<% @position_request.attachments.each  do |r|  %>
-<%= link_to r.file, r.file_url %>
-<% end %>
-
-<% if @position_request.position.owner? current_user %>
-  <%= render "comments/comments", :commentable => @position_request %>
-<% elsif @position_request.active? && @position_request.owner_commented? %>
-  <%= render "comments/comments", :commentable => @position_request %>
-<% elsif @position_request.closed? %>
-<div class="row-fluid">
-                <div class="row-fluid center">
-                  <div class="event-body event-box-text m-30">
-                  <div class="grey">
-                   
-                  <h1 class="normal">Comments are now closed</h1>
-
-                   
-                  </div><!--/big-event-info-->
-                  </div><!--/event-body-->
-
-                  <!-- Ako je user prihvatio event, onda se prikazuje dugme post comment, a gubi se accept dugme-->
-                  <!--a class="btn btn-small btn-pink"><i class="icon-ok"></i>ACCEPT</a-->
-                  <br>
-                  <!--a href="" class="small "><i class="icon-comment"></i>Post comment</a-->
-                    
-                </div><!--/row-fluid-->
-</div><!--/row-fluid-->
-<% else %>
-<div class="row-fluid">
-                <div class="row-fluid center">
-                  <div class="event-body event-box-text m-30">
-                  <div class="grey">
-                   
-                  <h1 class="normal">Please wait for response by owner.</h1>
-
-                   
-                  </div><!--/big-event-info-->
-                  </div><!--/event-body-->
-
-                  <!-- Ako je user prihvatio event, onda se prikazuje dugme post comment, a gubi se accept dugme-->
-                  <!--a class="btn btn-small btn-pink"><i class="icon-ok"></i>ACCEPT</a-->
-                  <br>
-                  <!--a href="" class="small "><i class="icon-comment"></i>Post comment</a-->
-                    
-                </div><!--/row-fluid-->
-</div><!--/row-fluid-->
+ 
 <% end %>

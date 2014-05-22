@@ -18,32 +18,32 @@
                           <div class="span10">
                             <div class="row-fluid">
                            
-                            <h4 class="bold"><a href="<%#= event_path(event) %>" class="pink"><%= position.title %></a>
+                            <!--h4 class="bold"><a href="<%#= event_path(event) %>" class="pink"><%#= position.title %></a>
                              <div class="pull-right label label-owner">
                               <span><i class="icon-user"></i></span></div> 
                              <div class="pull-right label label-approved">
                               <span><i class="icon-ok"></i></span></div>
-                             </h4>
+                             </h4-->
                           </div>
                           <div class="row-fluid">
                           <div class="span7">
                             
-                            <p class="grey"><%= request.applicant %></p>
+                            <h5 class="grey"><%= request.applicant %></h5>
                             <p class="green bold"><%= position.created_at.strftime("%B %d, %Y at %I.%M %p") %></p>
 
                           </div><!--/span-->
                           <div class="span5">
                            <% if position.position_requests.size > 0 %>
-                              <p ><a href="<%#= event_path(event) %>" class="grey small">People: <span class="bold"><%= position.position_requests.size %> </span></a></p>
+                              <p ><!--a href="<%#= event_path(event) %>" class="grey small">People: <span class="bold"><%#= position.position_requests.size %> </span></a--></p>
 
-                              <p class="">
+                              <!--p class="">
                                 
                                 <a href="<%#= event_path(event) %>" class="grey small relative comment-badge">
                                   <% if request.new_comments?(current_user) %>
                                     <span class="badge andika"></span>
                                   <% end %>
                                   Comments: 
-                                  <span class="bold"><%= position.position_requests.size %></span></a></p>
+                                  <span class="bold"><%= position.position_requests.size %></span></a></p-->
                           
                           <% end %>
                           </div><!--/span-->
@@ -54,16 +54,16 @@
                             
                               <%#= link_to "Delete", event, :method => :delete, :class => "btn alert alert-grey", :confirm => "Do you want to delete your event?"%>
                               <span class="alert alert-grey"><%= request.status? %></span>
-                              <% if request.position.owner? current_user %>
                                 <% if request.pending? %>
                                   <%= link_to 'Process', process_request_position_position_request_path(request, :position_id => request.position.id), :method => :put, :class => "btn btn-green" %>
                                   <%= link_to 'Reject', reject_position_position_request_path(request, :position_id => request.position.id), :method => :put, :class => "btn btn-grey-pink" %>
                                 <% else %>
-                                  <%= link_to 'Status', position_request_path(request.token, :position_id => request.position.id), :class => "btn btn-green" %>
+                                  <% if request.rejected? %>
+                                    <%= link_to 'Status', position_request_path(request.token, :position_id => request.position.id), :class => "btn btn-grey-pink" %>
+                                  <% else %>
+                                    <%= link_to 'Status', position_request_path(request.token, :position_id => request.position.id), :class => "btn btn-green" %>
+                                  <% end %>
                                 <% end %>
-                              <% else  %>
-                                <%= link_to 'Status', position_request_path(position_request.token, :position_id => request.position.id), :class => "btn btn-grey-pink" %>
-                              <% end %>
 
                               <% if request.new_comments?(current_user) %>
                                       <!--p><span class="badge andika">.</span></p-->

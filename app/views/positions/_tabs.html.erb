@@ -1,10 +1,13 @@
         <ul class="nav nav-tabs">
-            <li class="<%#= current_tab?(user_path(@user))%>">
-              <%= link_to glyph(:user) + "#{@user.try(:name)}'s Activities", '#' %>
+            <li class="active <%#= current_tab?(user_path(@user))%>">
+              <%= link_to glyph(:user) + "Applied", '#' %>
             </li>
 
           <li class="<%= current_tab?(root_path)%> <%= 'notify-badge' %>">
-              <span class="badge andika"><%= "1" %></span>
-              <%= link_to "Request's", "#" %>
+              <%= link_to "Accepted", "#" %>
+            </li>
+            <li class="<%= current_tab?(root_path)%> <%= 'notify-badge' %>">
+              <!--span class="badge andika"><%= "3" %></span-->
+              <%= link_to "Rejected", "#" %>
             </li>
         </ul>
