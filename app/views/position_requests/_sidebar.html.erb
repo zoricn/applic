@@ -15,6 +15,7 @@
             <h5 class="grey"><%= position.title %></h5>
 
           </div--><!--/event-info-->
+
           <% if @position_request.active? && @position_request.owner_commented? %>
             <%= form_for [position, request], :html => { :id => "attachment_upload" } do |f| %>
               <%= f.hidden_field :position_id, :value => position.id %>
@@ -41,9 +42,9 @@
                 
         <div class="row-fluid small likes">
           <p class="grey center"> Files</p>
-          <% @position_request.attachments.each  do |r|  %>
+          <% @position_request.attachments.try(:each)  do |r|  %>
             <p class="grey normal"><%= link_to r.file, r.file_url %></p>
-          <% end %>
+          <% end if (@position_request.active? || @position_request.position.owner?(current_user))%>
         </div><!--/row-fluid-->
       </div><!--/span-->
 
