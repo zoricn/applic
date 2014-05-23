@@ -15,7 +15,12 @@ class Comment < ActiveRecord::Base
 
   after_create :notify!
 
+  #If it's first comment notify the user he is been eleceted for further processing
   def notify!
-   Notifications.comment_received(self)
+    if self.commentable.comments.count > 1
+      Notifications.comment_received(self)
+    else
+      Notifications.request_in_process(self.commentable)
+    end
   end
 end

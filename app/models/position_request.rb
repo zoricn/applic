@@ -59,7 +59,8 @@ class PositionRequest < ActiveRecord::Base
   def process!
    self.status = STATUS_PROCESS
    save!
-   Notifications.request_in_process(self)
+   # Don't notify if in process, notify when on first comment
+   #Notifications.request_in_process(self)
   end
 
   def status_closed?
