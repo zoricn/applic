@@ -1968,6 +1968,12 @@ background-repeat: repeat-x;
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffA0D84B', endColorstr='#ff90C245', GradientType=0);
 }
 
+/* Progress bar */
+.bar{
+background-color: #23E752;
+height: 10px;
+}
+
 /*navigation tabs */
 .nav-tabs{
 	margin: 0;

@@ -15,6 +15,8 @@ gem "coffee-rails", "~> 4.0.0"
 
 # Use jQuery as the JavaScript library
 gem "jquery-rails"
+#Uploading files via Ajax
+gem 'jquery-fileupload-rails'
 
 # User authentication
 gem "devise", "3.2.4"

@@ -1,5 +1,5 @@
 <div class="span2 main-box" style="overflow: hidden;">
-        <div class=" row-fluid user-event-info">
+        <div class=" row-fluid user-event-info files">
 
           <!--div class="profile-image">
             <div class="thumb">
@@ -16,19 +16,28 @@
 
           </div--><!--/event-info-->
           <% if @position_request.active? && @position_request.owner_commented? %>
-            <%= form_for [position, request] do |f| %>
+            <%= form_for [position, request], :html => { :id => "attachment_upload" } do |f| %>
               <%= f.hidden_field :position_id, :value => position.id %>
               <%= f.fields_for :attachments, request.attachments.build do |p| %>
                  <%= p.file_field :file, :multiple => true, name: "attachments[file][]", :class => "btn-flat small" %>
                  
-               <%= f.submit "Add file", :class => "btn-pink" %>
+               <%#= f.submit "Add file", :class => "btn-pink" %>
 
              <% end %>        
 
             <% end %>
           <% end %>
+
+
         </div><!--/row-fluid-->
         <hr class="dashed">
+
+        <script id="template-upload" type="text/x-tmpl">
+        <div class="upload">
+          {%=o.name%}
+          <div class="progress"><div class="bar" style="width: 0%"></div></div>
+        </div>
+        </script>
                 
         <div class="row-fluid small likes">
           <p class="grey center"> Files</p>
