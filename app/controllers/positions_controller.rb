@@ -12,7 +12,7 @@ class PositionsController < ApplicationController
 
   # GET /positions/1
   def show
-    @requests = @position.position_requests.desc
+    @requests = @position.position_requests.sort_by{|i| i.created_at}.reverse!
   end
 
   def iframe
