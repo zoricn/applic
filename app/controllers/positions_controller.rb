@@ -12,7 +12,7 @@ class PositionsController < ApplicationController
 
   # GET /positions/1
   def show
-    @requests = @position.position_requests
+    @requests = @position.position_requests.desc
   end
 
   def iframe
