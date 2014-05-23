@@ -35,8 +35,8 @@ class PositionRequest < ActiveRecord::Base
 
   scope :open, -> {where("status IN (?)", OPEN_STATUSES)}
   scope :accepted, -> { where(:status => STATUS_ACCEPTED) }
-  scope :desc, order("events.event_at DESC")
-  scope :asc, order("events.event_at ASC")
+  scope :desc, order("created_at DESC")
+  scope :asc, order("created_at ASC")
 
   def reject!
    return if !self.status_open?
