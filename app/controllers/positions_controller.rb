@@ -5,14 +5,11 @@ class PositionsController < ApplicationController
   # GET /positions
   def index
     @positions = current_user.positions
-    @open_positions = Position.all.where(:user_id != current_user.id )
-    @open_positions -= @positions
-    @applied_positions = []
   end
 
   # GET /positions/1
   def show
-    @requests = @position.position_requests.sort_by{|i| i.created_at}.reverse!
+    @requests = @position.position_requests.open.sort_by{|i| i.created_at}.reverse!
   end
 
   def iframe
@@ -71,13 +68,6 @@ class PositionsController < ApplicationController
     end
 
     def resolve_layout
-    case action_name
-      when "index"
-        "dashboard"
-       when "new"
-        "application"
-      else
-        "dashboard"
-      end
+      %w(new).include?(action_name) ? "application" : "dashboard"
     end
 end

@@ -44,6 +44,10 @@ BaseApp::Application.routes.draw do
 
   end
 
+  authenticated :user do
+    root :to => "positions#index", as: :auth_root
+  end
+
   root :to => "pages#index"
 
 end

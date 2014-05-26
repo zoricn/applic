@@ -16,6 +16,7 @@ Spork.prefork do
       add_group 'Views', 'app/views'
     end
   end
+
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
@@ -23,18 +24,20 @@ Spork.prefork do
   require "email_spec"
   require 'webmock/rspec'
   require 'rake'
+  Dir["./spec/support/**/*.rb"].sort.each { |f| require f}
 
   WebMock.disable_net_connect!(:allow_localhost => true)
 
-  Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
-
   RSpec.configure do |config|
+    config.include Warden::Test::Helpers, :type => :feature
+    Warden.test_mode!
+    config.after do
+      Warden.test_reset!
+    end
     # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
     config.fixture_path = "#{::Rails.root}/spec/fixtures"
     config.include Devise::TestHelpers, :type => :controller
-
     config.extend ControllerMacros, :type => :controller
-    config.extend FeatureMacros, :type => :feature
 
     # If you're not using ActiveRecord, or you'd prefer not to run each of your
     # examples within a transaction, remove the following line or assign false
@@ -83,5 +86,9 @@ Spork.each_run do
   end
   load "#{Rails.root}/config/routes.rb"
   FactoryGirl.reload
+  Dir["./app/models/**/*.rb"].sort.each { |f| require f}
+  Dir["./app/controllers/**/*.rb"].sort.each { |f| require f}
+  Dir["./app/helpers/**/*.rb"].sort.each { |f| require f}
+  Dir["./spec/support/**/*.rb"].sort.each { |f| require f}
 end
 

@@ -18,9 +18,9 @@
 
           <% if @position_request.active? && @position_request.owner_commented? %>
             <%= form_for [position, request], :html => { :id => "attachment_upload" } do |f| %>
-              <%= f.hidden_field :position_id, :value => position.id %>
+              <%= f.hidden_field :position_token, :value => position.token %>
               <%= f.fields_for :attachments, request.attachments.build do |p| %>
-                 <%= p.file_field :file, :multiple => true, name: "attachments[file][]", :class => "btn-flat small" %>
+                 <%= p.file_field :file, :multiple => true, name: "attachments[file][]", :class => "btn-flat small", :id => "file" %>
                  
                <%#= f.submit "Add file", :class => "btn-pink" %>
 

@@ -2,14 +2,10 @@ class Position < ActiveRecord::Base
   belongs_to :user
   has_many :position_requests
   has_many :participants, through: :position_requests
-  #has_many :fields, class_name: "PositionField"
-  #accepts_nested_attributes_for :fields, allow_destroy: true
 
   before_create :generate_token
 
-
   #scope :active, where(:status => STATUS_COLLECTED)
-
 
   def owner? user
     self.user == user

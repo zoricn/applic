@@ -1,5 +1,5 @@
 <%= form_for [@position, @position_request], :url => "/positions/#{@position.token}/position_requests" do |f| %>
-  <%= f.hidden_field :position_id, :value => @position.id %>
+  <%= f.hidden_field :position_token, :value => @position.token %>
   <% if @position_request.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@position_request.errors.count, "error") %> prohibited this position_request from being saved:</h2>

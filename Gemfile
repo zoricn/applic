@@ -26,6 +26,8 @@ gem "kaminari"
 gem "ransack"
 gem "dynamic_form"
 gem 'mandrill-api'
+# Keep in mind 
+# https://github.com/ryanb/private_pub as a realtime chatting app
 gem 'acts_as_commentable'
 gem "twitter-bootstrap-rails"
 gem "less-rails"
@@ -35,6 +37,8 @@ gem "fog"          # Support for Amazon s3
 gem "rails_config" # Storing settings logic test/development/production
 gem 'simple_form'
 
+
+
 group :test, :development do
   gem "rspec-rails"
   gem "debugger"
@@ -42,6 +46,7 @@ group :test, :development do
   gem "awesome_print"
   gem "pry"
   gem "simplecov"
+    gem "minitest"
 end
 
 group :development do
@@ -63,7 +68,7 @@ group :test do
   gem "capybara-webkit"
   gem "launchy"
   gem "webmock"
-  gem "minitest"
+  gem "faker"
 end
 
 group :production, :development do

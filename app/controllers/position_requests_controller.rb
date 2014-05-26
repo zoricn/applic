@@ -1,23 +1,23 @@
 class PositionRequestsController < ApplicationController
   before_action :get_position_request, only: [:accept, :reject, :update, :process_request]
-  before_action :get_position, only: [:new, :create]
-  before_action :get_position_protected, only: [:create, :update]
+  before_action :get_position_by_token, only: [:create, :update]
   before_action :get_request_by_token, only: [:show, :status]
-  before_action :already_applied?, only: [:new, :create]
-  before_action :authorized?, only: [:accept, :reject, :process_request] 
+  before_action :authorized?, only: [:accept, :reject, :process_request]
 
-  layout "dashboard"
 
   def show
     @position = @position_request.position
   end
 
   def new
+    @position = Position.find_by_token(params[:token])
     @position_request = @position.position_requests.build
     @attachment = @position_request.attachments.build
     render :layout => false
   end
 
+
+  #REFACTOR: CREATE AND UPDATE ACTIONS
   def create
     @position_request = @position.position_requests.build(position_request_params)
     @position_request.user_id = current_user.id if current_user
@@ -64,18 +64,8 @@ class PositionRequestsController < ApplicationController
       @position_request = PositionRequest.find(params[:id])
     end
 
-    #### PLEASE REFACTOR THIS TWO METHODS!!!###
-
-    def get_position
-      @position = Position.find_by_token(params[:token])
-    end
-
-    def get_position_protected
-      @position = Position.find(position_request_params[:position_id])
-    end
-
-    def already_applied?
-     redirect_to root_path, notice: 'You already applied to this job' if @position.applied?(current_user)
+    def get_position_by_token
+      @position = Position.find_by_token(position_request_params[:position_token])
     end
 
     def authorized?
@@ -88,7 +78,7 @@ class PositionRequestsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def position_request_params
-      params.require(:position_request).permit(:position_id, attachments_attributes: [:id, :position_request_id, :file]).tap do |whitelisted|
+      params.require(:position_request).permit(:position_token, attachments_attributes: [:id, :position_request_id, :file]).tap do |whitelisted|
         whitelisted[:applicant] = params[:position_request][:applicant]
       end
     end

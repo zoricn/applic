@@ -55,13 +55,13 @@
                               <%#= link_to "Delete", event, :method => :delete, :class => "btn alert alert-grey", :confirm => "Do you want to delete your event?"%>
                               <span class="alert alert-grey"><%= request.status? %></span>
                                 <% if request.pending? %>
-                                  <%= link_to 'Process', process_request_position_position_request_path(request, :position_id => request.position.id), :method => :put, :class => "btn btn-green" %>
-                                  <%= link_to 'Reject', reject_position_position_request_path(request, :position_id => request.position.id), :method => :put, :class => "btn btn-grey-pink" %>
+                                  <%= link_to 'Process', process_request_position_position_request_path(request), :method => :put, :class => "btn btn-green" %>
+                                  <%= link_to 'Reject', reject_position_position_request_path(request), :method => :put, :class => "btn btn-grey-pink" %>
                                 <% else %>
                                   <% if request.rejected? %>
-                                    <%= link_to 'Status', position_request_path(request.token, :position_id => request.position.id), :class => "btn btn-grey-pink" %>
+                                    <%= link_to 'Status', position_request_path(request.token), :class => "btn btn-grey-pink" %>
                                   <% else %>
-                                    <%= link_to 'Status', position_request_path(request.token, :position_id => request.position.id), :class => "btn btn-green" %>
+                                    <%= link_to 'Status', position_request_path(request.token), :class => "btn btn-green" %>
                                   <% end %>
                                 <% end %>
 

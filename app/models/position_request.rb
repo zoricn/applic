@@ -21,22 +21,30 @@ class PositionRequest < ActiveRecord::Base
   OPEN_STATUSES = [ STATUS_ACCEPTED, STATUS_PENDING, STATUS_PROCESS ]
   CLOSED_STATUS = [STATUS_REJECTED, STATUS_CLOSED, STATUS_ARCHIVED]
 
-   #belongs_to :applicant
   belongs_to :position
   belongs_to :user
+  has_many :attachments
+
+  attr_writer :files
 
   before_create :generate_token
   after_create :pending!
+  #after_save :save_attachments
 
-  store_accessor :applicant
-
-  has_many :attachments
   accepts_nested_attributes_for :attachments
 
   scope :open, -> {where("status IN (?)", OPEN_STATUSES)}
   scope :accepted, -> { where(:status => STATUS_ACCEPTED) }
+  scope :rejected, -> { where(:status => STATUS_REJECTED) }
   scope :desc, order("created_at DESC")
   scope :asc, order("created_at ASC")
+
+  #DEPRECATED
+  def save_attachments
+    self.files.each do |f|
+      self.attachments.create!(:file => f, :position_request_id => self.id)
+    end unless self.files.nil?
+  end
 
   def reject!
    return if !self.status_open?
@@ -61,8 +69,6 @@ class PositionRequest < ActiveRecord::Base
   def process!
    self.status = STATUS_PROCESS
    save!
-   # Don't notify if in process, notify when on first comment
-   #Notifications.request_in_process(self)
   end
 
   def status_closed?
@@ -118,7 +124,7 @@ class PositionRequest < ActiveRecord::Base
   end
 
   def applicant_description
-    self.applicant  
+    self.applicant
   end
 
   def new_comments?(user)

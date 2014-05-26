@@ -1,23 +1,7 @@
-<% if current_user %>
-  <ul>
-    <% current_user.pending_requests?.each do |position_request| %>
-      <%= render 'position_requests/status', :position_request => position_request, :as => :position_request %>
-    <% end unless current_user.pending_requests?.empty?%>
-  </ul>
-<% else %>
-  
-  <div class="main-background">
-    <div class="row-fluid">
-      <% unless @positions.empty? %>
-          <!-- Small boxes-->
-          <div class="row-fluid">
-            <% @positions.each do |position| %>
-                  <%= render '/positions/box', :position => position %>
-            <% end%>
-          </div><!--/row-fluid-->      
-      <% end %>
+<div class="main-background">
+ <div class="row-fluid">
+      Hello
 
   </div><!--/container-->
 </div><!--/main-background-->
-<% end %>
 
