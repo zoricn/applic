@@ -6,7 +6,7 @@
               <% if @position_request.position.owner?(current_user) && @position_request.status_open? %><p>Applied: <%= @position_request.entity %> <%= link_to 'Reject', reject_position_position_request_path(@position_request, :position_id => @position_request.position.id), :method => :put, :class => "pink" %></p>
               <% end %>
             </div><!--/main-box-header-->
-      <%= render "sidebar", :position => @position, :request => @position_request %>
+      <%= render "files", :position => @position, :request => @position_request %>
       <!-- Activity on profil pages
       ============================== -->
           <% if @position_request.position.owner? current_user %>
@@ -14,9 +14,9 @@
           <% elsif @position_request.active? && @position_request.owner_commented? %>
             <%= render "comments/comments", :commentable => @position_request %>
           <% elsif @position_request.closed? %>
-             <%= render "positions/empty", :title => "Comments are now closed", :subtitle => "" %>
+             <%= render "shared/empty", :title => "Comments are now closed", :subtitle => "" %>
           <% else %>
-            <%= render "positions/empty", :title => "Please wait for response by owner.", :subtitle => "" %>
+            <%= render "shared/empty", :title => "Please wait for response by owner.", :subtitle => "" %>
           <% end %>
       
     </div><!--/row-fluid-->

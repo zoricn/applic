@@ -1,12 +1,12 @@
 <div class="container">
   <div class="container-fluid single-box-layout profile-page">
     <div class="row-fluid">
-      <%= render "profile", :position => @position %>
+      <%= render "info", :position => @position %>
 
       <!-- EMPTY Activity on profil pages
       ============================== -->
 <% if false %>
-  <%= render "empty", :title => "", :subtitle=> "" %>
+  <%= render "/shared/empty", :title => "", :subtitle=> "" %>
 <% else %>
 
 
@@ -18,14 +18,14 @@
       ============================== -->
       <div class="span9">
         
-        <%= render "tabs", :user => current_user %>
+        <%= render "tabs" %>
 
       <div class="profile-activity main-box">
         <div class="row-fluid request-list">
           <ul>
             <% @requests.each do |request| %>
 
-              <%= render 'summary', :request => request, :position => request.position %>
+              <%= render 'request', :request => request, :position => request.position %>
 
             <% end %>
           </ul>

@@ -73,7 +73,7 @@ class PositionRequestsController < ApplicationController
     end
 
     def get_request_by_token
-      @position_request = PositionRequest.find_by_token params[:token]   
+      @position_request = PositionRequest.find_by_token params[:token]
     end
 
     # Only allow a trusted parameter "white list" through.

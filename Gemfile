@@ -69,6 +69,7 @@ group :test do
   gem "launchy"
   gem "webmock"
   gem "faker"
+  gem 'fivemat'  #Beautiful test output
 end
 
 group :production, :development do

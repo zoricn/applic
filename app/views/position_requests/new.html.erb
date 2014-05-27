@@ -62,7 +62,51 @@ transition: background-color 300ms ease-out;
 </style>
 
 <% if !notice %>
-<%= render 'form' %>
+  <%= form_for [@position, @position_request], :url => "/positions/#{@position.token}/position_requests" do |f| %>
+    <%= f.hidden_field :position_token, :value => @position.token %>
+    <% if @position_request.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@position_request.errors.count, "error") %> prohibited this position_request from being saved:</h2>
+
+        <ul>
+        <% @position_request.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%#= text_field_tag('first_name', nil, :name => "position_request[first_name]")%>
+    <%#= f.text_field :name, :placeholder => "Kako se zovete?*" %>
+    <%#= f.text_field :birth_year, :placeholder => "Koje ste godiste?*" %>
+    <%#= f.text_field :email, :placeholder => "Vas email*" %>
+    <%#= f.text_field :education, :placeholder => "Smer na fakultetu koji ste zavrsili(i godinu) ili koji je u toku.*" %>
+    <%#= f.text_field :experience, :placeholder => "Programski jezici sa kojim imate najvise iskustva?*" %>
+    <%#= f.text_field :availability, :placeholder => "Puno radno vreme/pola radnog vrmena/praksa?" %>
+    <%#= f.text_field :why, :placeholder => "Zasto ste se odlucili za ovu prijavu?*" %>
+
+    <%#= @position.simple_fields_for :fields do |d| %>
+   
+      <% f.object.position.fields.each do |field| %>
+        <input id="position_request_<%= field["name"] %>" name="position_request[applicant][<%= field["name"] %>]" placeholder="<%= field["question"] %>*" type="text">
+      <% end %>
+   
+    <%# end %>
+
+    <%#= f.text_field :last_name, :placeholder => "Last Name" %>
+    <%#= f.text_field :email, :placeholder => "Email" %>
+
+
+      <%= f.fields_for :attachments do |p| %>
+       <div class="field">
+         <%#= p.label :file %><br>
+         <%#= p.file_field :file, :multiple => true, name: "attachments[file][]", :class => "btn-flat small" %>
+       </div>
+     <% end %>
+
+    <div class="actions">
+      <%= f.submit "Apply", :class => "btn-flat" %>
+    </div>
+  <% end %>
 </div>
 <% else %>
 	Thank you for applying
