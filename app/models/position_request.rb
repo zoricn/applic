@@ -127,7 +127,9 @@ class PositionRequest < ActiveRecord::Base
   end
 
   def applicant_description
-    self.applicant
+    str = ""
+    self.applicant.each {|key, value| str += key + " : " + value + "\n"}
+    str
   end
 
   def new_comments?(user)
