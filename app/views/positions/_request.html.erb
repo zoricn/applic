@@ -61,6 +61,7 @@
                                   <% if request.rejected? %>
                                     <%= link_to 'Status', position_request_path(request.token), :class => "btn btn-grey-pink" %>
                                   <% else %>
+                                  <%= link_to 'Accept', accept_position_position_request_path(request, :position_id => request.position.id), :method => :put, :class => "btn btn-grey-pink" unless request.accepted?%>
                                     <%= link_to 'Status', position_request_path(request.token), :class => "btn btn-green" %>
                                   <% end %>
                                 <% end %>

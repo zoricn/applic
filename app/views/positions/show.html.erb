@@ -18,14 +18,14 @@
       ============================== -->
       <div class="span9">
         
-        <%= render "tabs" %>
+        <%= render "tabs", :position => @psition %>
 
       <div class="profile-activity main-box">
         <div class="row-fluid request-list">
           <ul>
             <% @requests.each do |request| %>
 
-              <%= render 'request', :request => request, :position => request.position %>
+              <%= render 'request', :request => request, :position => @position %>
 
             <% end %>
           </ul>

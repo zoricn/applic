@@ -12,7 +12,7 @@
                   <a href="#" class="comment-note"><i class="icon-comments"></i></a> 
                 <% end %>
                 <% if position.owner?(current_user) || position.applied?(current_user) %>
-                  <%= link_to position.title, position_path(position), :class => "pink" %>
+                  <%= link_to position.title, position_path(position, :type => "applied"), :class => "pink" %>
                 <% else %>
                   <%= link_to position.title, new_position_position_request_path(position), :class => "pink" %>
                 <% end %>

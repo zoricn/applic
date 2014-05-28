@@ -9,7 +9,14 @@ class PositionsController < ApplicationController
 
   # GET /positions/1
   def show
-    @requests = @position.position_requests.open.sort_by{|i| i.created_at}.reverse!
+    @requests = case params[:type]
+    when "rejected"
+       @position.position_requests.rejected.sort_by{|i| i.created_at}.reverse!
+    when "accepted"
+       @position.position_requests.accepted.sort_by{|i| i.created_at}.reverse!
+    else
+       @position.position_requests.open.sort_by{|i| i.created_at}.reverse!
+    end
   end
 
   def iframe

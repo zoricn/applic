@@ -19,6 +19,7 @@ class PositionRequest < ActiveRecord::Base
 
   ACTIVE_STATUSES = [ STATUS_ACCEPTED, STATUS_PROCESS ]
   OPEN_STATUSES = [ STATUS_ACCEPTED, STATUS_PENDING, STATUS_PROCESS ]
+  PENDING_STATUSES = [ STATUS_PENDING, STATUS_PROCESS ]
   CLOSED_STATUS = [STATUS_REJECTED, STATUS_CLOSED, STATUS_ARCHIVED]
 
   belongs_to :position
@@ -54,7 +55,7 @@ class PositionRequest < ActiveRecord::Base
   end
 
   def accept!
-   return if !(self.status == STATUS_PENDING)
+   return if !(PENDING_STATUSES.include? self.status)
    self.status = STATUS_ACCEPTED
    save!
    MailWorker.perform_async("RequestMailer", :request_accepted, self.id)
