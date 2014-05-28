@@ -29,6 +29,22 @@ within("li#employee") do
   fill_in 'Name', :with => 'Jimmy'
 end
 
+## Finding
+
+find_field('First Name').value
+find_link('Hello').visible?
+find_button('Send').click
+
+find(:xpath, "//table/tr").click
+find("#overlay").find("h1").click
+all('a').each { |a| a[:href] }
+Note: find will wait for an element to appear on the page, as explained in the Ajax section. If the element does not appear it will raise an error.
+
+These elements all have all the Capybara DSL methods available, so you can restrict them to specific parts of the page:
+
+find('#navigation').click_link('Home')
+expect(find('#navigation')).to have_button('Sign out')
+
 ##Debugging
 
 save_and_open_page

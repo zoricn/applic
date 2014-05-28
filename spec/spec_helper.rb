@@ -24,6 +24,8 @@ Spork.prefork do
   require "email_spec"
   require 'webmock/rspec'
   require 'rake'
+  require 'sidekiq/testing'  #Regire if gem 'sidekiq'
+
   Dir["./spec/support/**/*.rb"].sort.each { |f| require f}
 
   WebMock.disable_net_connect!(:allow_localhost => true)
@@ -34,6 +36,14 @@ Spork.prefork do
     config.after do
       Warden.test_reset!
     end
+
+    config.before(:each) do
+      Sidekiq::Worker.clear_all
+    end
+
+    Sidekiq::Testing.fake!  # # fake is the default mode. Fake the sidekiq calls to Redis
+
+
     # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
     config.fixture_path = "#{::Rails.root}/spec/fixtures"
     config.include Devise::TestHelpers, :type => :controller
