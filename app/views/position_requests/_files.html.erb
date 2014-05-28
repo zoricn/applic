@@ -34,7 +34,7 @@
         <hr class="dashed">
 
         <script id="template-upload" type="text/x-tmpl">
-        <div class="upload">
+        <div class="{%=o.name.replace(".", "")%}">
           {%=o.name%}
           <div class="progress"><div class="bar" style="width: 0%"></div></div>
         </div>
@@ -42,11 +42,28 @@
                 
         <div class="row-fluid small likes">
           <p class="grey center"> Files</p>
-          <% @position_request.attachments.try(:each)  do |r|  %>
-            <p class="grey normal"><%= link_to r.file, r.file_url %></p>
-          <% end if (@position_request.active? || @position_request.position.owner?(current_user))%>
+          <div id="files">
+            <% @position_request.attachments.reverse.try(:each)  do |r|  %>
+              <p class="grey normal"><%= link_to r.file.file.filename, r.file_url  unless r.file.file.nil? || r.nil? %></p>
+            <% end if (@position_request.active? || @position_request.position.owner?(current_user))%>
+          </div>
+          <a id="add-element" href="#">add new element</a>
         </div><!--/row-fluid-->
       </div><!--/span-->
 
+
+      
+
+
+
+<script type="text/javascript">
+$('#add-element').click(function() {
+    var newElement = $('<div class="new">new element</div>');
+    $('#files').append(newElement);
+    newElement.focus();
+    newElement.removeClass('new');
+});
+
+</script>
 
 

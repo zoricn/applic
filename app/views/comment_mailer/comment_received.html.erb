@@ -9,4 +9,5 @@ Imate novi komentar. Pogledajte <%= link_to 'Status', position_request_path(@req
 Pogledajte <%= link_to 'status', position_request_path(@request.token, :only_path => false) %>
 <br />
 <br />
-<%= render 'signature' %>
+
+<%= @request.request_mail_signature %>

@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_many :positions
   has_many :position_requests
+  has_one :setting
+
+  #after_create :create_settings
 
   def role?(role)
     return !!self.roles.find_by_name(role.to_s)
@@ -54,5 +57,7 @@ class User < ActiveRecord::Base
       User.create!(:email => data["email"], :password => Devise.friendly_token[0,20])
     end
   end
+
+  private
 
 end

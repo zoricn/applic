@@ -1,0 +1,4 @@
+var newElement = $('<div class="new"><p class="grey normal"><%= link_to @attachment.file.file.filename, @attachment.file_url %></p></div>');
+$('#files').prepend(newElement);
+newElement.focus();
+newElement.removeClass('new');

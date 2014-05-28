@@ -14,9 +14,9 @@ class Comment < ActiveRecord::Base
   #If it's first comment notify the user he is been eleceted for further processing
   def notify!
     if self.commentable.comments.count > 1
-      Notifications.comment_received(self)
+      MailWorker.perform_async("CommentMailer", :comment_received, self.id)
     else
-      Notifications.request_in_process(self.commentable)
+      MailWorker.perform_async("RequestMailer", :request_in_process, self.commentable.id)
     end
   end
 end

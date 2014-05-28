@@ -4,6 +4,7 @@ class PositionRequestsController < ApplicationController
   before_action :get_request_by_token, only: [:show, :status]
   before_action :authorized?, only: [:accept, :reject, :process_request]
 
+  layout :resolve_layout
 
   def show
     @position = @position_request.position
@@ -37,9 +38,15 @@ class PositionRequestsController < ApplicationController
        params[:attachments]['file'].each do |f|
           @attachment = @position_request.attachments.create!(:file => f, :position_request_id => @position_request.id)
        end
-      redirect_to position_request_path(@position_request.token), notice: 'Successfully added attachment. Thanks'
+      respond_to do |format|
+        format.html { redirect_to( position_request_path(@position_request.token), notice: 'Successfully added attachment. Thanks') }
+        format.js
+      end
     else
-      redirect_to position_request_path(@position_request.token), notice: 'There was nothing to attach.'
+      respond_to do |format|
+        format.html { redirect_to( position_request_path(@position_request.token), alert: 'There was nothing to attach.') }
+        format.js
+      end
     end
   end
 
@@ -65,7 +72,7 @@ class PositionRequestsController < ApplicationController
     end
 
     def get_position_by_token
-      @position = Position.find_by_token(position_request_params[:position_token])
+      @position = Position.find_by_token(position_request_params[:token])
     end
 
     def authorized?
@@ -77,9 +84,14 @@ class PositionRequestsController < ApplicationController
     end
 
     # Only allow a trusted parameter "white list" through.
+    #REFACTOR: token is allowed, but also token is used to find position!!
     def position_request_params
-      params.require(:position_request).permit(:position_token, attachments_attributes: [:id, :position_request_id, :file]).tap do |whitelisted|
+      params.require(:position_request).permit(:token, attachments_attributes: [:id, :position_request_id, :file]).tap do |whitelisted|
         whitelisted[:applicant] = params[:position_request][:applicant]
       end
+    end
+
+    def resolve_layout
+      %w(show).include?(action_name) ? "dashboard" : "application"
     end
 end

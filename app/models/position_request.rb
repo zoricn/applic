@@ -50,20 +50,20 @@ class PositionRequest < ActiveRecord::Base
    return if !self.status_open?
    self.status = STATUS_REJECTED
    save!
-   Notifications.request_rejected(self)
+   MailWorker.perform_async("RequestMailer", :request_rejected, self.id)
   end
 
   def accept!
    return if !(self.status == STATUS_PENDING)
    self.status = STATUS_ACCEPTED
    save!
-   Notifications.request_accepted(self)
+   MailWorker.perform_async("RequestMailer", :request_accepted, self.id)
   end
 
   def pending!
    self.status = STATUS_PENDING
    save!
-   Notifications.request_received(self)
+   MailWorker.perform_async("RequestMailer", :request_received, self.id)
   end
 
   def process!
@@ -108,9 +108,7 @@ class PositionRequest < ActiveRecord::Base
   end
 
   def entity_email
-    if self.user
-      self.user.try(:email)
-    elsif self.applicant
+    if self.applicant
       self.applicant["email"]
     else
       ""
@@ -130,6 +128,12 @@ class PositionRequest < ActiveRecord::Base
   def new_comments?(user)
     return unless user == self.position.owner #Return only if owner viewing it
     self.position.owner.last_sign_in_at < self.comments.last.created_at unless self.comments.empty?
+  end
+
+  def request_mail_signature
+    "CEO, Kolosek IT<br />
+    Bulevar Oslobodjenja 11-13, Novi Sad, Serbia<br />
+    www.kolosek.com".html_safe
   end
 
   protected

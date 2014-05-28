@@ -30,11 +30,7 @@ class ApplicationController < ActionController::Base
   end
 
   def resolve_layout
-    if !current_user.nil?
-      'dashboard'
-    else
-      'application'
-    end
+    !current_user.nil? ? "dashboard" : "application"
   end  
 
 end
