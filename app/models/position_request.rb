@@ -96,6 +96,10 @@ class PositionRequest < ActiveRecord::Base
     self.status == STATUS_REJECTED
   end
 
+  def accepted?
+    self.status == STATUS_ACCEPTED
+  end
+
   def closed?
     CLOSED_STATUS.include?(self.status)
   end
