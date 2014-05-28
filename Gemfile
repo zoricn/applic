@@ -37,6 +37,8 @@ gem "fog"          # Support for Amazon s3
 gem "rails_config" # Storing settings logic test/development/production
 gem 'simple_form'
 
+gem 'sidekiq'  #Background worker
+
 
 
 group :test, :development do
