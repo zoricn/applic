@@ -47,23 +47,6 @@
               <p class="grey normal"><%= link_to r.file.file.filename, r.file_url  unless r.file.file.nil? || r.nil? %></p>
             <% end if (@position_request.active? || @position_request.position.owner?(current_user))%>
           </div>
-          <a id="add-element" href="#">add new element</a>
         </div><!--/row-fluid-->
       </div><!--/span-->
-
-
-      
-
-
-
-<script type="text/javascript">
-$('#add-element').click(function() {
-    var newElement = $('<div class="new">new element</div>');
-    $('#files').append(newElement);
-    newElement.focus();
-    newElement.removeClass('new');
-});
-
-</script>
-
 
