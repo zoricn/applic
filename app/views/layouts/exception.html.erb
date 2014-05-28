@@ -43,18 +43,11 @@
 
     <%= yield :head %>
 
-             <!--script for tooltip -->
-     <script type="text/javascript">
-        $(document).ready(function(){
-            if($("[rel=tooltip]").length){
-                $("[rel=tooltip]").tooltip();
-            }
-        });
-     </script>
 
   </head>
 
   <body>
+<!-- ClickTale end of Top part -->
 
     <div id="sticky-wrap"><!-- Sticky wrap is necessary for sticky footer! In content-yield need to add div- see in views/devies/registratiions/new.html.erb -->
 
@@ -67,16 +60,8 @@
 
       
       <div class="container">
-        <div class="row-fluid single-box-layout">
-          <div class="main-box">
-            <div class="main-box-header relative">
-              <%= yield :title %>
-            </div><!--/main-box-header-->
-            <div class="main-box-body">
               <%= yield %>
-            </div><!--/main-box-body-->
-          </div><!--/main-box-->
-        </div><!--/row-fluid-->
+         
       </div><!--/container-->
 
     </div><!--main-background-->
