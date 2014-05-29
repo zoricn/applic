@@ -6,7 +6,6 @@ BaseApp::Application.routes.draw do
 
   get "/position_requests/:token" => "position_requests#show", :as => "position_request"
   get "/positions/:token/position_requests/new" => "position_requests#new"
-  get "/job/:token" => "positions#iframe", :as => "job"
 
 
   resources :comments, :only => [:create, :new]

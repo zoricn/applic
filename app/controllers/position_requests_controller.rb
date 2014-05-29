@@ -1,4 +1,5 @@
 class PositionRequestsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :get_position_request, only: [:accept, :reject, :update, :process_request]
   before_action :get_position_by_token, only: [:create, :update]
   before_action :get_request_by_token, only: [:show, :status]

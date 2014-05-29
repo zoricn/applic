@@ -1,5 +1,8 @@
 class PositionsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_position, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized, :except => :index
+  before_action :set_authorize_check, :except => :index # This always follows the verify_authorized
   layout :resolve_layout
 
   # GET /positions
@@ -9,6 +12,8 @@ class PositionsController < ApplicationController
 
   # GET /positions/1
   def show
+      #raise NotAuthorizedError unless PositionPolicy.new(current_user, @position).show?
+   authorize @position
     @requests = case params[:type]
     when "rejected"
        @position.position_requests.rejected.sort_by{|i| i.created_at}.reverse!
@@ -19,21 +24,13 @@ class PositionsController < ApplicationController
     end
   end
 
-  def iframe
-    @position = Position.find_by_token(params[:token])
-    render :layout => false
-  end
-
-  # GET /positions/new
   def new
     @position = Position.new
   end
 
-  # GET /positions/1/edit
   def edit
   end
 
-  # POST /positions
   def create
     @position = Position.new(position_params)
     @position.user_id = current_user.id
@@ -46,7 +43,6 @@ class PositionsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /positions/1
   def update
     if @position.update(position_params)
       redirect_to @position, notice: 'Position was successfully updated.'
@@ -55,7 +51,6 @@ class PositionsController < ApplicationController
     end
   end
 
-  # DELETE /positions/1
   def destroy
     @position.destroy
     redirect_to positions_url, notice: 'Position was successfully destroyed.'
@@ -72,6 +67,10 @@ class PositionsController < ApplicationController
       params.require(:position).permit(:title, :description, :fields_attributes).tap do |whitelisted|
         whitelisted[:fields] = params[:position][:fields]
       end
+    end
+
+    def set_authorize_check
+      authorize @position
     end
 
     def resolve_layout

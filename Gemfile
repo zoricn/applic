@@ -39,6 +39,8 @@ gem 'simple_form'
 
 gem 'sidekiq'  #Background worker
 
+gem "pundit"  # Authorization gem
+
 
 
 group :test, :development do
