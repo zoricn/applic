@@ -19,8 +19,12 @@
         <hr class="dashed">
         <div class="row-fluid small likes">
         <p class="grey center"> Copy/Paste code to website</p>
-                    <p> <%= text_field_tag '', "<iframe src='http://#{Settings.domain.host}/positions/#{@position.token}/position_requests/new' height='100%' width='100%' style='border: 0px solid #C9C9C9;'>Error loading form. Please reload in few moments</iframe>" %>
-</p>
+        <div class="input-prepend">
+<span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+      </span>
+  <%= text_field_tag '', "<iframe src='http://#{Settings.domain.host}/positions/#{@position.token}/position_requests/new' height='100%' width='100%' style='border: 0px solid #C9C9C9;'>Error loading form. Please reload in few moments</iframe>", :class => "clippsy" %>
+</div>
 </div>
 
                 <div class="upgrade">
