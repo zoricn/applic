@@ -1,0 +1,94 @@
+#intro {
+position: relative;
+width: 100%;
+top: 0;
+display: block;
+z-index: 1;
+overflow: hidden;
+background: #000;
+padding: 0;
+margin: 0;
+color: #FFF;
+}
+
+#intro .container {
+margin: 220px auto 170px auto;
+position: relative;
+z-index: 1;
+}
+#intro #slides {
+position: fixed !important;
+top: 0;
+opacity: 0.4;
+z-index: 0;
+}
+
+#intro .slogan {
+margin: 0 20px 0 0;
+position: relative;
+}
+
+#intro .slogan h2 {
+font-size: 80px;
+color: #FFF;
+margin: 0;
+display: block;
+-webkit-margin-before: 0.83em;
+-webkit-margin-after: 0.83em;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+font-weight: bold;
+text-transform: uppercase;
+}
+
+#intro .slogan h3 {
+font-size: 40px;
+padding: 0;
+margin: 0;
+color: #FFF;
+}
+
+#intro .slogan p {
+margin: 60px 0 0 0;
+opacity: 0.9;
+}
+
+body {
+font-family: 'Open Sans', sans-serif;
+font-size: 16px;
+font-weight: 100;
+color: #444;
+}
+
+form {
+display: block;
+margin-top: 0em;
+}
+
+#intro form .title {
+padding: 20px;
+font-size: 25px;
+text-transform: uppercase;
+background: #666;
+line-height: 1;
+}
+
+.form-group {
+margin: 0px;
+position: relative;
+}
+.form-group {
+margin-bottom: 15px;
+}
+
+.form-control {
+border-radius: 0;
+border: 0;
+height: auto;
+padding: 20px;
+font-size: 16px;
+box-shadow: none;
+line-height: 20px;
+margin: 0;
+box-shadow: none;
+}
