@@ -1,8 +1,8 @@
 class PositionsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_position, only: [:show, :edit, :update, :destroy]
-  after_action :verify_authorized, :except => :index
-  before_action :set_authorize_check, :except => :index # This always follows the verify_authorized
+  after_action :verify_authorized, :except => [:index, :new]
+  before_action :set_authorize_check, :except => [:index, :new] # This always follows the verify_authorized
   layout :resolve_layout
 
   # GET /positions
