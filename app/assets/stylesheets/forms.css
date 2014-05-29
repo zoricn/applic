@@ -2,3 +2,16 @@ input.clippsy{
 	width:78%;
 	height:28px;
 }
+
+input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+padding: 8px 9px;
+/* -webkit-border-radius: 0px; */
+-moz-border-radius: 0px;
+/* border-radius: 0px; */
+color:#858585;
+}
+
+.input-prepend input[type="text"]{
+
+	padding: 4px 6px;
+}

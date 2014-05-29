@@ -33,16 +33,15 @@
 <div id="InputsWrapper">
 <div class="question_field" style="margin-left:0px;margin-top:20px;">
   <div>
-    Identifier:<%= text_field_tag "position[fields][][name]", nil, :class => "small" %>
-    Question:<%= text_field_tag "position[fields][][question]", nil,  :class => "small" %>
+    <%= text_field_tag "position[fields][][name]", nil, :class => "small", :placeholder => "Identifier e.g. name", :value => 'aaa' %>
+    <%= text_field_tag "position[fields][][question]", nil,  :class => "small", :placeholder => "Question e.g. Your name?" %>
     <a href="#" class="removeclass">&times;</a>
   </div>
 </div>
 </div>
 
 
-
-<a href="#" id="AddMoreField">Add field</a><br/>
+<%= link_to "Add field", '#', :id => "AddMoreField", :class => "btn btn-green" %>
 
 
 <%#= simple_form_for @position do |f| %>
