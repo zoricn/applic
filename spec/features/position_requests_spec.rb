@@ -2,7 +2,10 @@ require 'spec_helper'
 
 describe "PositionRequests" do
   let(:position) {FactoryGirl.create(:position)}
-  describe "GET /position_requests/new" do
+  let(:current_user) { FactoryGirl.create(:user) }
+
+  #before {login_as(current_user, :scope => :user)}
+  describe "as non-logged in user" do
 
     it "Submit the request", :js => true do
     	visit new_position_position_request_path(position.token)

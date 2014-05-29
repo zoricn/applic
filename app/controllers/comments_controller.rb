@@ -1,5 +1,4 @@
 class CommentsController < ApplicationController
-  before_filter :authenticate_user!
   ## Commenting is allowed for non-registered users too
 #before_filter :authenticate_user!   
 before_action :get_record_commentable, only: [:create]

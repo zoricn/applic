@@ -25,6 +25,7 @@ Spork.prefork do
   require 'webmock/rspec'
   require 'rake'
   require 'sidekiq/testing'  #Regire if gem 'sidekiq'
+  require "pundit/rspec"     #Authorization gem
 
   Dir["./spec/support/**/*.rb"].sort.each { |f| require f}
 
