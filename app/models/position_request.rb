@@ -79,8 +79,8 @@ class PositionRequest < ActiveRecord::Base
 
   def process!
     return if !(self.status == STATUS_PENDING)
-   self.status = STATUS_PROCESS
-   save!
+    self.status = STATUS_PROCESS
+    save!
   end
 
   def status_closed?
@@ -165,9 +165,6 @@ class PositionRequest < ActiveRecord::Base
   protected
 
   def generate_token
-    self.token = loop do
-      random_token = SecureRandom.urlsafe_base64(nil, false)
-      break random_token unless PositionRequest.exists?(token: random_token)
-    end
+    Generate.token self
   end
 end
