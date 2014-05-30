@@ -33,7 +33,11 @@ describe "'Attach file' form", :js => true do
       context "the form that attaching file to the related request", :js => true do
         before(:each) do
           visit position_request_path(request.token)
-          attach_file 'file', File.join(Rails.root, '/spec/fixtures/data_files/sample.doc')
+
+          find("#image").click
+          #attach_file 'image', File.join(Rails.root, '/spec/fixtures/data_files/sample.doc')
+          hidden_field = find('#file_upload', :visible => false)
+          hidden_field.set File.join(Rails.root, '/spec/fixtures/data_files/sample.doc')
         end
 
         it 'attach the file to related document' do
