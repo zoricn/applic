@@ -20,9 +20,9 @@
             <%= form_for [position, request], :html => { :id => "attachment_upload" } do |f| %>
               <%= f.hidden_field :position_token, :value => position.token %>
               <%= f.fields_for :attachments, request.attachments.build do |p| %>
-                 <%= image_tag "drop_files.png", :style=>"cursor:pointer;height:116px;width:97%;border:2px dashed #CACACA;", :id => "image" %>
+                 <%= image_tag "drop_file.jpg", :style=>"cursor:pointer;height:116px;width:97%;border:2px dashed #CACACA;", :id => "image" %>
                  <%= p.file_field :file, :multiple => true, name: "attachments[file][]", :class => "btn-flat small", :id => "file", :id => "file_upload", :hidden => true %>
-                 
+                
                <%#= f.submit "Add file", :class => "btn-pink" %>
 
              <% end %>        
