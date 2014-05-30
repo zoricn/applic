@@ -3,7 +3,7 @@
     <div class="row-fluid">
       <div class="main-box-header relative" style="border: 0px;">
               <h1 class="normal"><%= @position_request.position.title %></h1><h4><%= @position_request.status? %></h4>
-              <% if @position_request.position.owner?(current_user) && @position_request.status_open? %><p>Applied: <%= @position_request.entity %> <%= link_to 'Reject', reject_position_position_request_path(@position_request, :position_id => @position_request.position.id), :method => :put, :class => "pink" %> | <%= link_to 'Accept', accept_position_position_request_path(@position_request, :position_id => @position_request.position.id), :method => :put, :class => "pink" %></p>
+              <% if @position_request.position.owner?(current_user) && @position_request.status_open? %><p>Applied: <%= @position_request.entity %> <%= link_to 'Reject', reject_position_position_request_path(@position_request, :position_id => @position_request.position.id), :method => :put, :class => "pink" %> | <%= link_to 'Accept', accept_position_position_request_path(@position_request, :position_id => @position_request.position.id), :method => :put, :class => "pink" %> Last seen: <%= @position_request.last_seen? %></p>
               <% end %>
             </div><!--/main-box-header-->
       <%= render "files", :position => @position, :request => @position_request %>

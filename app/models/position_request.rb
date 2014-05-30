@@ -139,6 +139,15 @@ class PositionRequest < ActiveRecord::Base
     end
   end
 
+  def seen!
+    self.last_seen_at = DateTime.now
+    save!
+  end
+
+  def last_seen?
+    self.last_seen_at.strftime("%B %d, %Y at %I.%M %p") unless self.last_seen_at.nil?
+  end
+
   #Print information about the applicant
   # !! It requires email field!
   def entity

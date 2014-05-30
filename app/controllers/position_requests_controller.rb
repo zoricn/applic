@@ -9,6 +9,7 @@ class PositionRequestsController < ApplicationController
 
   def show
     @position = @position_request.position
+    @position_request.seen! unless current_user
   end
 
   def new
@@ -25,9 +26,7 @@ class PositionRequestsController < ApplicationController
     @position_request.user_id = current_user.id if current_user
 
     if @position_request.save
-       params[:attachments]['file'].each do |f|
-          @attachment = @position_request.attachments.create!(:file => f, :position_request_id => @position_request.id)
-       end unless params[:attachments].nil?
+      save_files params[:attachments]
       redirect_to new_position_position_request_path(@position.token), notice: 'Position request was successfully created. Please wait email with details.'
     else
       redirect_to new_position_position_request_path(@position.token), notice: 'You already applied for this job. Please let others apply too.'
@@ -36,9 +35,7 @@ class PositionRequestsController < ApplicationController
 
   def update
     if !params[:attachments].nil?
-       params[:attachments]['file'].each do |f|
-          @attachment = @position_request.attachments.create!(:file => f, :position_request_id => @position_request.id)
-       end
+       save_files params[:attachments]
       respond_to do |format|
         format.html { redirect_to( position_request_path(@position_request.token), notice: 'Successfully added attachment. Thanks') }
         format.js
@@ -87,6 +84,12 @@ class PositionRequestsController < ApplicationController
 
     def get_request_by_token
       @position_request = PositionRequest.find_by_token params[:token]
+    end
+
+    def save_files(attachment)
+       attachment['file'].each do |f|
+          @attachment = @position_request.attachments.create!(:file => f, :position_request_id => @position_request.id)
+       end unless attachment.nil?
     end
 
     # Only allow a trusted parameter "white list" through.
