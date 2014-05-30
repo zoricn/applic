@@ -37,4 +37,10 @@ For testing and development:
 
 ### License
 
-base-app is Copyright © 2011-2014 [Kolosek IT](http://kolosek.com). It is free software, and may be redistributed under the terms specified in the LICENSE file.
+Applicant is Copyright © 2011-2014 [Kolosek IT](http://kolosek.com). 
+
+### Deploy
+
+Run the sidekiq in the backgroun
+
+bundle exec sidekiq -d -L log/sidekiq.log -q mailer,5 -q default -e production
