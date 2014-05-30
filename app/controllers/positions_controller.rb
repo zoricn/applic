@@ -5,27 +5,13 @@ class PositionsController < ApplicationController
   before_action :set_authorize_check, :except => [:index, :new] # This always follows the verify_authorized
   layout :resolve_layout
 
-  # GET /positions
   def index
     @positions = current_user.positions
   end
 
-  # GET /positions/1
   def show
-      #raise NotAuthorizedError unless PositionPolicy.new(current_user, @position).show?
-   authorize @position
-    @requests = case params[:type]
-    when "process"
-       @position.position_requests.processed.sort_by{|i| i.created_at}.reverse!
-    when "rejected"
-       @position.position_requests.rejected.sort_by{|i| i.created_at}.reverse!
-    when "accepted"
-       @position.position_requests.accepted.sort_by{|i| i.created_at}.reverse!
-    when "archived"
-       @position.position_requests.archived.sort_by{|i| i.created_at}.reverse!
-    else
-       @position.position_requests.pending.sort_by{|i| i.created_at}.reverse!
-    end
+    authorize @position
+    @requests = resolve_scope(params[:type])
   end
 
   def new
@@ -79,5 +65,20 @@ class PositionsController < ApplicationController
 
     def resolve_layout
       %w(new).include?(action_name) ? "application" : "dashboard"
+    end
+
+    def resolve_scope(type)
+      case type
+      when "process"
+         @position.position_requests.processed.sort_by{|i| i.created_at}.reverse!
+      when "rejected"
+         @position.position_requests.rejected.sort_by{|i| i.created_at}.reverse!
+      when "accepted"
+         @position.position_requests.accepted.sort_by{|i| i.created_at}.reverse!
+      when "archived"
+         @position.position_requests.archived.sort_by{|i| i.created_at}.reverse!
+      else
+         @position.position_requests.pending.sort_by{|i| i.created_at}.reverse!
+      end
     end
 end
