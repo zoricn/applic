@@ -1,4 +1,7 @@
         <ul class="nav nav-tabs">
+                  <li class="<%= current_tab?(position_path(@position, :type => "process"))%> <%= 'notify-badge' %>">
+              <%= link_to "In Process", position_path(@position, :type => "process") %>
+            </li>
             <li class="<%= current_tab?(position_path(@position, :type => "applied"))%> <%= 'notify-badge' %>">
               <%= link_to glyph(:user) + "Applied", position_path(@position, :type => "applied") %>
             </li>
@@ -9,5 +12,9 @@
             <li class="<%= current_tab?(position_path(@position, :type => "rejected"))%> <%= 'notify-badge' %>">
               <!--span class="badge andika"><%= "3" %></span-->
               <%= link_to "Rejected", position_path(@position, :type => "rejected") %>
+            </li>
+                        <li class="<%= current_tab?(position_path(@position, :type => "archived"))%> <%= 'notify-badge' %>">
+              <!--span class="badge andika"><%= "3" %></span-->
+              <%= link_to "Archived", position_path(@position, :type => "archived") %>
             </li>
         </ul>

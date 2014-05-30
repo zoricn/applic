@@ -43,11 +43,14 @@ describe "Positions" do
 
           it "should show one pending status" do
             click_link @position.title
+            click_link "Applied"
             expect(page).to have_content("pending")
             expect(page).to_not have_content("Status")
           end
+
           it "should show main chat screen" do
             click_link @position.title
+            click_link "Applied"
             click_link "Process"
             expect(page).to have_content("Files")
             expect(page).to_not have_content("Status")

@@ -12,7 +12,7 @@ jQuery ->
         $('#attachment_upload').append(data.context)
         jqXHR = data.submit()
            .success((result, textStatus, jqXHR) -> 
-             $('.' + file.name.replace(".", "")).html('File uploaded.') )
+             $('..' + file.name.replace(".", "")).html('File uploaded.') )
       else
         alert("#{file.name} is not a gif, jpeg, or png image file")
     progress: (e, data) ->

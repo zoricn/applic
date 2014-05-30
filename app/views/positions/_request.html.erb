@@ -75,9 +75,14 @@
                                 <% else %>
                                   <% if request.rejected? %>
                                     <%= link_to 'Status', position_request_path(request.token), :class => "btn btn-grey-pink" %>
-                                  <% else %>
-                                  <%= link_to 'Accept', accept_position_position_request_path(request, :position_id => request.position.id), :method => :put, :class => "btn btn-grey-pink" unless request.accepted?%>
+                                  <% elsif request.process? %>
+                                    <%= link_to 'Status', position_request_path(request.token), :class => "btn btn-yellow" %>
+                                    <%= link_to 'Accept', accept_position_position_request_path(request, :position_id => request.position.id), :method => :put, :class => "btn btn-green" unless request.accepted?%>
+                                    <%= link_to 'Reject', reject_position_position_request_path(request, :position_id => request.position.id), :method => :put, :class => "btn btn-grey-pink" unless request.accepted?%>
+                                    <%= link_to 'Archive', archive_position_position_request_path(request, :position_id => request.position.id), :method => :put, :class => "btn btn-grey-pink" unless request.accepted?%>
+                                  <% elsif request.accepted? || request.archived? %>
                                     <%= link_to 'Status', position_request_path(request.token), :class => "btn btn-green" %>
+                                    
                                   <% end %>
                                 <% end %>
 

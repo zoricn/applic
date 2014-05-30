@@ -37,6 +37,9 @@ class PositionRequest < ActiveRecord::Base
   scope :open, -> {where("status IN (?)", OPEN_STATUSES)}
   scope :accepted, -> { where(:status => STATUS_ACCEPTED) }
   scope :rejected, -> { where(:status => STATUS_REJECTED) }
+  scope :processed, ->  { where(:status => STATUS_PROCESS) }
+  scope :archived, -> {where(:status => STATUS_ARCHIVED)}
+  scope :pending, -> {where(:status => STATUS_PENDING)}
   scope :desc, order("created_at DESC")
   scope :asc, order("created_at ASC")
 
@@ -67,7 +70,15 @@ class PositionRequest < ActiveRecord::Base
    MailWorker.perform_async("RequestMailer", :request_received, self.id)
   end
 
+  def archive!
+    return if !self.status_open?
+    self.status = STATUS_ARCHIVED
+    save!
+    MailWorker.perform_async("RequestMailer", :request_archived, self.id)
+  end
+
   def process!
+    return if !(self.status == STATUS_PENDING)
    self.status = STATUS_PROCESS
    save!
   end
@@ -96,8 +107,16 @@ class PositionRequest < ActiveRecord::Base
     self.status == STATUS_REJECTED
   end
 
+  def archived?
+    self.status == STATUS_ARCHIVED
+  end
+
   def accepted?
     self.status == STATUS_ACCEPTED
+  end
+
+  def process?
+    self.status == STATUS_PROCESS
   end
 
   def closed?

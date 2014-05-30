@@ -1,6 +1,6 @@
 class PositionRequestsController < ApplicationController
   before_filter :authenticate_user!, except: [:update, :new, :create, :show]
-  before_action :get_position_request, only: [:accept, :reject, :update, :process_request]
+  before_action :get_position_request, only: [:accept, :reject, :update, :process_request, :archive]
   before_action :get_position_by_token, only: [:create, :update]
   before_action :get_request_by_token, only: [:show, :status]
   before_action :authorized?, only: [:accept, :reject, :process_request]
@@ -63,7 +63,12 @@ class PositionRequestsController < ApplicationController
 
   def reject
     @position_request.reject!
-    redirect_to position_path(@position_request.position)
+    redirect_to position_path(@position_request.position, :type => "reject")
+  end
+
+  def archive
+    @position_request.archive!
+    redirect_to position_path(@position_request.position, :type => "process")
   end
 
   private

@@ -15,12 +15,16 @@ class PositionsController < ApplicationController
       #raise NotAuthorizedError unless PositionPolicy.new(current_user, @position).show?
    authorize @position
     @requests = case params[:type]
+    when "process"
+       @position.position_requests.processed.sort_by{|i| i.created_at}.reverse!
     when "rejected"
        @position.position_requests.rejected.sort_by{|i| i.created_at}.reverse!
     when "accepted"
        @position.position_requests.accepted.sort_by{|i| i.created_at}.reverse!
+    when "archived"
+       @position.position_requests.archived.sort_by{|i| i.created_at}.reverse!
     else
-       @position.position_requests.open.sort_by{|i| i.created_at}.reverse!
+       @position.position_requests.pending.sort_by{|i| i.created_at}.reverse!
     end
   end
 

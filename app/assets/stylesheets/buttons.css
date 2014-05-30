@@ -468,7 +468,7 @@ background-color: #DF15AE;
 }
 .btn-green:hover{
   color: white;
-background-color: #90C245;
+background-color: #9DD34C;
 }
 .btn-grey-pink{
   text-shadow: rgba(0, 0, 0, 0.247059) 0px -1px 0px;
@@ -483,18 +483,11 @@ text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
 .btn-yellow{
-  color: #444;
+  color: #555;
 text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-background-color: #FFF318;
-background-image: -moz-linear-gradient(top, #FFF318, #FFF318);
-background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FFF318), to(#FFF318));
-background-image: -webkit-linear-gradient(top, #FFF318, #FFF318);
-background-image: -o-linear-gradient(top, #FFF318, #FFF318);
-background-image: linear-gradient(to bottom, #FFF318, #FFF318);
-background-repeat: repeat-x;
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffff318', endColorstr='#fffff318', GradientType=0);
+background-color: rgb(255, 252, 187);
 }
 .btn-yellow:hover{
-  color: #444;
+  color: #555;
 background-color: #FFF318;
 }
